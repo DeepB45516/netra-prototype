@@ -415,6 +415,13 @@
 </div>
 
 <script>
+  const APP_INTRO_FLAG = 'netra_intro_app_seen';
+
+  function continueToAppAfterLogin() {
+    localStorage.removeItem(APP_INTRO_FLAG);
+    window.location.href = '/';
+  }
+
   // Check if already logged in
   fetch('/api/me').then(r => r.json()).then(data => {
     if (data.loggedIn) window.location.href = '/';
@@ -447,7 +454,7 @@
       });
       const data = await res.json();
       if (!res.ok) { errEl.textContent = data.error || 'Sign in failed.'; return; }
-      window.location.href = '/';
+      continueToAppAfterLogin();
     } catch { errEl.textContent = 'Network error. Please try again.'; }
     finally { btn.disabled = false; btn.textContent = 'Sign In 🚀'; }
   }
@@ -469,7 +476,7 @@
       });
       const data = await res.json();
       if (!res.ok) { errEl.textContent = data.error || 'Sign up failed.'; return; }
-      window.location.href = '/';
+      continueToAppAfterLogin();
     } catch { errEl.textContent = 'Network error. Please try again.'; }
     finally { btn.disabled = false; btn.textContent = 'Create Account ✨'; }
   }
@@ -487,7 +494,7 @@
     .then(r => r.json())
     .then(data => {
       if (data.ok) {
-        window.location.href = '/';
+        continueToAppAfterLogin();
       } else {
         if (errEl) errEl.textContent = data.error || 'Google sign-in failed.';
         else alert(data.error || 'Google sign-in failed.');
@@ -617,13 +624,14 @@
 (function() {
   var splash = document.getElementById('splashOverlay');
   var video  = document.getElementById('splashVideo');
+  var introFlagKey = 'netra_intro_login_seen';
 
   // Detect mobile: touch device OR narrow viewport
   var isMobile = ('ontouchstart' in window) || (window.innerWidth <= 768);
   var src = isMobile ? '/assets/intro-mobile.mp4' : '/assets/intro-pc.mp4';
 
-  // Check if already seen this session
-  if (sessionStorage.getItem('netra_intro_seen')) {
+  // Check if already seen on this device
+  if (localStorage.getItem(introFlagKey)) {
     splash.style.display = 'none';
     return;
   }
@@ -631,7 +639,7 @@
   video.src = src;
 
   function dismissSplash() {
-    sessionStorage.setItem('netra_intro_seen', '1');
+    localStorage.setItem(introFlagKey, '1');
     splash.style.opacity = '0';
     setTimeout(function() { splash.style.display = 'none'; }, 650);
   }

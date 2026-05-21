@@ -5072,3 +5072,52 @@ body.activity-open {
   .logout-button { justify-content: center; padding: 12px 18px; }
   .avatar-canvas { width: 120px; height: 120px; }
 }
+
+@media (max-width: 768px) {
+  .app-shell {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+  }
+
+  .sidebar {
+    position: static;
+    top: auto;
+    width: 100%;
+    height: auto;
+    border-right: 0;
+    border-bottom: 3px solid var(--border);
+    padding: 10px 12px;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  .main-nav {
+    display: flex;
+    flex-direction: row;
+    width: max-content;
+  }
+
+  .workspace {
+    width: 100%;
+    padding: 12px;
+  }
+
+  .topbar {
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+
+  .status-strip {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .progress-band {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .progress-copy.right {
+    text-align: left;
+  }
+}

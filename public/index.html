@@ -278,10 +278,11 @@
     (function() {
       var splash = document.getElementById('splashOverlay');
       var video  = document.getElementById('splashVideo');
+      var introFlagKey = 'netra_intro_app_seen';
       var isMobile = ('ontouchstart' in window) || (window.innerWidth <= 768);
       var src = isMobile ? '/assets/intro-mobile.mp4' : '/assets/intro-pc.mp4';
 
-      if (sessionStorage.getItem('netra_intro_seen')) {
+      if (localStorage.getItem(introFlagKey)) {
         splash.style.display = 'none';
         return;
       }
@@ -289,7 +290,7 @@
       video.src = src;
 
       function dismissSplash() {
-        sessionStorage.setItem('netra_intro_seen', '1');
+        localStorage.setItem(introFlagKey, '1');
         splash.style.opacity = '0';
         setTimeout(function() { splash.style.display = 'none'; }, 650);
       }
