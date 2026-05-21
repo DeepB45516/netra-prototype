@@ -1,0 +1,653 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Video Splash Screen injected before rest of head -->
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>NETRA – Sign In</title>
+  <link rel="icon" type="image/png" href="/assets/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+  <!-- Google Identity Services -->
+  <script src="https://accounts.google.com/gsi/client" async defer onload="initGoogleSignIn()"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    :root {
+      --ink: #1a1a2e;
+      --muted: #6b7280;
+      --surface: #ffffff;
+      --bg: #f0f4ff;
+      --border: #1a1a2e;
+      --teal: #00c9a7;
+      --blue: #4c6ef5;
+      --yellow: #ffe347;
+      --coral: #ff6b6b;
+      --green: #40c057;
+      --shadow: 3px 4px 0 #1a1a2e;
+      --shadow-lg: 5px 6px 0 #1a1a2e;
+      --radius: 16px;
+      --radius-lg: 24px;
+      --font-display: 'Fredoka One', cursive;
+      --font-body: 'Nunito', sans-serif;
+    }
+    html, body { margin: 0; min-height: 100dvh; font-family: var(--font-body); background: var(--bg); color: var(--ink); overflow-x: hidden; }
+    body {
+      display: grid;
+      place-items: center;
+      padding: 20px;
+      background-image:
+        radial-gradient(circle at 10% 20%, rgba(255,227,71,.45) 0%, transparent 36%),
+        radial-gradient(circle at 90% 80%, rgba(76,110,245,.18) 0%, transparent 36%),
+        radial-gradient(circle at 55% 50%, rgba(0,201,167,.14) 0%, transparent 50%);
+    }
+
+    .login-shell {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      width: min(900px, 100%);
+      min-height: min(580px, 90dvh);
+      background: var(--surface);
+      border: 3px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      animation: shellIn .5s cubic-bezier(.22,1,.36,1) both;
+    }
+
+    @keyframes shellIn {
+      from { opacity: 0; transform: translateY(24px) scale(.97); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* ── LEFT PANEL — brand hero ── */
+    .login-hero {
+      background: var(--yellow);
+      border-right: 3px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 32px;
+      gap: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .login-hero::before {
+      content: '';
+      position: absolute;
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.25);
+      top: -80px; right: -80px;
+    }
+    .login-hero::after {
+      content: '';
+      position: absolute;
+      width: 200px; height: 200px;
+      border-radius: 50%;
+      background: rgba(26,26,46,.06);
+      bottom: -60px; left: -60px;
+    }
+
+    .hero-brand {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-shield {
+      width: 90px; height: 90px;
+      background: var(--surface);
+      border: 3px solid var(--border);
+      border-radius: 22px;
+      display: grid;
+      place-items: center;
+      box-shadow: var(--shadow);
+      animation: shieldFloat 3s ease-in-out infinite;
+    }
+    .hero-shield svg { width: 52px; height: 52px; }
+
+    @keyframes shieldFloat {
+      0%,100% { transform: translateY(0) rotate(-2deg); }
+      50%      { transform: translateY(-8px) rotate(2deg); }
+    }
+
+    .hero-name {
+      font-family: var(--font-display);
+      font-size: 3.2rem;
+      color: var(--ink);
+      line-height: 1;
+      letter-spacing: .02em;
+    }
+
+    .hero-tagline {
+      font-size: .92rem;
+      font-weight: 700;
+      color: rgba(26,26,46,.65);
+      text-align: center;
+      line-height: 1.45;
+      max-width: 200px;
+    }
+
+    .hero-badges {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 12px;
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: .75rem;
+      box-shadow: 2px 3px 0 var(--border);
+    }
+
+    /* ── RIGHT PANEL — form ── */
+    .login-form-panel {
+      display: flex;
+      flex-direction: column;
+      padding: 40px 36px;
+      gap: 0;
+      overflow-y: auto;
+    }
+
+    .form-header {
+      margin-bottom: 24px;
+    }
+    .form-header h2 {
+      font-family: var(--font-display);
+      font-size: 1.9rem;
+      margin: 0 0 4px;
+      color: var(--ink);
+    }
+    .form-header p {
+      margin: 0;
+      color: var(--muted);
+      font-size: .88rem;
+      font-weight: 600;
+    }
+
+    /* Tabs */
+    .auth-tabs {
+      display: flex;
+      gap: 0;
+      border: 2.5px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 22px;
+      box-shadow: var(--shadow);
+    }
+    .auth-tab {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      background: var(--surface);
+      font-family: var(--font-display);
+      font-size: 1rem;
+      color: var(--muted);
+      cursor: pointer;
+      transition: background .15s, color .15s;
+    }
+    .auth-tab.active {
+      background: var(--yellow);
+      color: var(--ink);
+    }
+    .auth-tab:not(:last-child) { border-right: 2.5px solid var(--border); }
+
+    /* Google button */
+    .google-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 12px 16px;
+      border: 2.5px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+      font-weight: 800;
+      font-size: .92rem;
+      color: var(--ink);
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      transition: transform .12s, box-shadow .12s;
+      margin-bottom: 16px;
+    }
+    .google-btn:hover { transform: translate(-1px,-2px); box-shadow: 4px 5px 0 var(--border); }
+    .google-btn svg { width: 22px; height: 22px; flex-shrink: 0; }
+
+    /* Divider */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      color: var(--muted);
+      font-size: .8rem;
+      font-weight: 700;
+    }
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      height: 2px;
+      background: #e5e7eb;
+      border-radius: 999px;
+    }
+
+    /* Form fields */
+    .field {
+      display: grid;
+      gap: 5px;
+      margin-bottom: 12px;
+    }
+    .field label {
+      font-size: .7rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .09em;
+      color: var(--muted);
+    }
+    .field input {
+      width: 100%;
+      min-height: 46px;
+      border: 2.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0 14px;
+      background: #f7f9ff;
+      color: var(--ink);
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: .95rem;
+      box-shadow: 2px 3px 0 #e5e7eb;
+      transition: box-shadow .15s, border-color .15s;
+    }
+    .field input:focus {
+      outline: none;
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(76,110,245,.18), 2px 3px 0 var(--border);
+    }
+
+    /* Submit button */
+    .submit-btn {
+      width: 100%;
+      min-height: 50px;
+      border: 2.5px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--teal);
+      color: #fff;
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      transition: transform .12s, box-shadow .12s;
+      margin-top: 4px;
+    }
+    .submit-btn:hover { transform: translate(-2px,-3px); box-shadow: 5px 6px 0 var(--border); }
+    .submit-btn:active { transform: translate(1px,2px); box-shadow: 1px 1px 0 var(--border); }
+    .submit-btn:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+
+    .error-msg {
+      color: var(--coral);
+      font-weight: 800;
+      font-size: .85rem;
+      min-height: 20px;
+      margin-top: 6px;
+    }
+
+    .form-foot {
+      margin-top: 14px;
+      text-align: center;
+      font-size: .82rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+    .form-foot a { color: var(--blue); font-weight: 800; cursor: pointer; text-decoration: none; }
+    .form-foot a:hover { text-decoration: underline; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      .login-shell { grid-template-columns: 1fr; min-height: unset; }
+      .login-hero { padding: 28px 20px; border-right: none; border-bottom: 3px solid var(--border); }
+      .hero-name { font-size: 2.4rem; }
+      .login-form-panel { padding: 24px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="login-shell">
+
+  <!-- HERO -->
+  <div class="login-hero">
+    <div class="hero-brand">
+      <div class="hero-shield">
+        <img src="/assets/logo.png" alt="NETRA Logo" style="width:64px;height:64px;object-fit:contain;border-radius:12px;" />
+      </div>
+      <div class="hero-name">NETRA</div>
+      <p class="hero-tagline">Your cybersecurity learning companion 🛡️</p>
+    </div>
+    <div class="hero-badges">
+      <span class="hero-badge">📚 Lessons</span>
+      <span class="hero-badge">⚔️ Quests</span>
+      <span class="hero-badge">🏆 Ranks</span>
+      <span class="hero-badge">🤖 AI Tutor</span>
+    </div>
+  </div>
+
+  <!-- FORM -->
+  <div class="login-form-panel">
+    <div class="form-header">
+      <h2 id="formTitle">Welcome back! 👋</h2>
+      <p id="formSub">Sign in to continue your learning journey</p>
+    </div>
+
+    <div class="auth-tabs">
+      <button class="auth-tab active" id="tabSignin" onclick="switchTab('signin')">Sign In</button>
+      <button class="auth-tab" id="tabSignup" onclick="switchTab('signup')">Sign Up</button>
+    </div>
+
+    <!-- Google Identity Services button -->
+    <div id="gsiButtonContainer" style="display:none;justify-content:center;margin-bottom:4px;"></div>
+    <!-- Custom Google button (hidden once real GSI button renders) -->
+    <button class="google-btn" id="googleFallbackBtn" onclick="triggerGoogleSignIn()">
+      <svg viewBox="0 0 48 48">
+        <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+        <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+        <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+        <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.36-8.16 2.36-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+        <path fill="none" d="M0 0h48v48H0z"/>
+      </svg>
+      Continue with Google
+    </button>
+
+    <p id="googleErr" style="color:#dc2626;font-size:.82rem;text-align:center;margin:0 0 4px;min-height:1em;"></p>
+    <div class="divider">or use email</div>
+
+    <!-- SIGN IN form -->
+    <div id="formSignin">
+      <div class="field">
+        <label>Email</label>
+        <input type="email" id="siEmail" placeholder="you@example.com" autocomplete="email"/>
+      </div>
+      <div class="field">
+        <label>Password</label>
+        <input type="password" id="siPassword" placeholder="Your password" autocomplete="current-password"/>
+      </div>
+      <p class="error-msg" id="siError"></p>
+      <button class="submit-btn" id="siBtn" onclick="doSignin()">Sign In 🚀</button>
+      <p class="form-foot">No account yet? <a onclick="switchTab('signup')">Create one free</a></p>
+    </div>
+
+    <!-- SIGN UP form -->
+    <div id="formSignup" style="display:none">
+      <div class="field">
+        <label>Your Name</label>
+        <input type="text" id="suName" placeholder="e.g. Priya" autocomplete="name"/>
+      </div>
+      <div class="field">
+        <label>Email</label>
+        <input type="email" id="suEmail" placeholder="you@example.com" autocomplete="email"/>
+      </div>
+      <div class="field">
+        <label>Password (min 6 chars)</label>
+        <input type="password" id="suPassword" placeholder="Create a password" autocomplete="new-password"/>
+      </div>
+      <p class="error-msg" id="suError"></p>
+      <button class="submit-btn" id="suBtn" onclick="doSignup()">Create Account ✨</button>
+      <p class="form-foot">Already have an account? <a onclick="switchTab('signin')">Sign in</a></p>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // Check if already logged in
+  fetch('/api/me').then(r => r.json()).then(data => {
+    if (data.loggedIn) window.location.href = '/';
+  });
+
+  function switchTab(tab) {
+    document.getElementById('tabSignin').classList.toggle('active', tab === 'signin');
+    document.getElementById('tabSignup').classList.toggle('active', tab === 'signup');
+    document.getElementById('formSignin').style.display = tab === 'signin' ? '' : 'none';
+    document.getElementById('formSignup').style.display = tab === 'signup' ? '' : 'none';
+    document.getElementById('formTitle').textContent = tab === 'signin' ? 'Welcome back! 👋' : 'Join NETRA 🛡️';
+    document.getElementById('formSub').textContent = tab === 'signin'
+      ? 'Sign in to continue your learning journey'
+      : 'Create your free account and start learning';
+  }
+
+  async function doSignin() {
+    const btn = document.getElementById('siBtn');
+    const errEl = document.getElementById('siError');
+    errEl.textContent = '';
+    btn.disabled = true; btn.textContent = 'Signing in…';
+    try {
+      const res = await fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: document.getElementById('siEmail').value.trim(),
+          password: document.getElementById('siPassword').value
+        })
+      });
+      const data = await res.json();
+      if (!res.ok) { errEl.textContent = data.error || 'Sign in failed.'; return; }
+      window.location.href = '/';
+    } catch { errEl.textContent = 'Network error. Please try again.'; }
+    finally { btn.disabled = false; btn.textContent = 'Sign In 🚀'; }
+  }
+
+  async function doSignup() {
+    const btn = document.getElementById('suBtn');
+    const errEl = document.getElementById('suError');
+    errEl.textContent = '';
+    btn.disabled = true; btn.textContent = 'Creating account…';
+    try {
+      const res = await fetch('/api/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: document.getElementById('suName').value.trim(),
+          email: document.getElementById('suEmail').value.trim(),
+          password: document.getElementById('suPassword').value
+        })
+      });
+      const data = await res.json();
+      if (!res.ok) { errEl.textContent = data.error || 'Sign up failed.'; return; }
+      window.location.href = '/';
+    } catch { errEl.textContent = 'Network error. Please try again.'; }
+    finally { btn.disabled = false; btn.textContent = 'Create Account ✨'; }
+  }
+
+  // ── GOOGLE SIGN-IN ──────────────────────────────────────────────────────────
+  // Called by Google Identity Services with a signed ID token credential
+  function handleGoogleCredential(response) {
+    const errEl = document.getElementById('googleErr');
+    if (errEl) errEl.textContent = '';
+    fetch('/api/auth/google', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ credential: response.credential })
+    })
+    .then(r => r.json())
+    .then(data => {
+      if (data.ok) {
+        window.location.href = '/';
+      } else {
+        if (errEl) errEl.textContent = data.error || 'Google sign-in failed.';
+        else alert(data.error || 'Google sign-in failed.');
+      }
+    })
+    .catch(() => {
+      if (errEl) errEl.textContent = 'Network error during Google sign-in.';
+    });
+  }
+
+  function triggerGoogleSignIn() {
+    if (window.google && google.accounts) {
+      google.accounts.id.prompt();
+    }
+  }
+
+  let _gsiReady = false;
+  let _clientId = null;
+
+  // Called by GSI script onload AND by fallback button click
+  function initGoogleSignIn() {
+    if (_gsiReady) return; // only init once
+    fetch('/api/google-client-id')
+      .then(r => r.json())
+      .then(({ clientId }) => {
+        if (!clientId) return;
+        _clientId = clientId;
+        _gsiReady = true;
+
+        google.accounts.id.initialize({
+          client_id: clientId,
+          callback: handleGoogleCredential,
+          auto_select: false,
+          cancel_on_tap_outside: true,
+          ux_mode: 'popup'
+        });
+
+        // Render the official Google button inside the container
+        const container = document.getElementById('gsiButtonContainer');
+        if (container) {
+          container.style.display = 'flex';
+          google.accounts.id.renderButton(container, {
+            theme: 'outline',
+            size: 'large',
+            width: 340,
+            text: 'continue_with',
+            shape: 'rectangular',
+            logo_alignment: 'left'
+          });
+          // Hide custom fallback — real button is now showing
+          const fb = document.getElementById('googleFallbackBtn');
+          if (fb) fb.style.display = 'none';
+        }
+      })
+      .catch(() => {});
+  }
+
+  function triggerGoogleSignIn() {
+    const errEl = document.getElementById('googleErr');
+    // If GSI is ready, trigger popup directly
+    if (_gsiReady && _clientId && window.google) {
+      google.accounts.id.prompt((notification) => {
+        if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+          // One Tap was suppressed — open full OAuth popup manually
+          const oauthUrl = 'https://accounts.google.com/o/oauth2/v2/auth?' +
+            'client_id=' + encodeURIComponent(_clientId) +
+            '&redirect_uri=' + encodeURIComponent(window.location.origin) +
+            '&response_type=token' +
+            '&scope=openid%20email%20profile' +
+            '&prompt=select_account';
+          // Use the renderButton popup instead — re-click the hidden iframe button
+          const gsiBtn = document.querySelector('#gsiButtonContainer div[role=button]');
+          if (gsiBtn) { gsiBtn.click(); return; }
+          if (errEl) errEl.textContent = 'Click the Google button above, or allow pop-ups for this site.';
+        }
+      });
+      return;
+    }
+    // GSI not loaded yet — wait and retry
+    if (errEl) errEl.textContent = 'Loading Google Sign-In…';
+    const poll = setInterval(() => {
+      if (window.google && google.accounts) {
+        clearInterval(poll);
+        initGoogleSignIn();
+        setTimeout(() => {
+          if (errEl) errEl.textContent = '';
+          triggerGoogleSignIn();
+        }, 300);
+      }
+    }, 200);
+    setTimeout(() => {
+      clearInterval(poll);
+      if (errEl) errEl.textContent = 'Google Sign-In failed to load. Check your connection.';
+    }, 8000);
+  }
+
+  // Enter key submits
+  document.addEventListener('keydown', e => {
+    if (e.key !== 'Enter') return;
+    const active = document.getElementById('formSignup').style.display !== 'none' ? 'signup' : 'signin';
+    if (active === 'signin') doSignin(); else doSignup();
+  });
+</script>
+
+<!-- ── VIDEO SPLASH SCREEN ─────────────────────────────────────────────── -->
+<div id="splashOverlay" style="
+  position:fixed;inset:0;z-index:9999;background:#000;
+  display:flex;align-items:center;justify-content:center;
+  opacity:1;transition:opacity .6s ease;
+">
+  <video id="splashVideo" playsinline muted autoplay
+    style="width:100%;height:100%;object-fit:cover;display:block;"
+    preload="auto">
+  </video>
+  <!-- Skip button -->
+  <button id="splashSkip" onclick="dismissSplash()" style="
+    position:absolute;bottom:28px;right:28px;
+    background:rgba(255,255,255,.18);backdrop-filter:blur(6px);
+    border:1.5px solid rgba(255,255,255,.4);border-radius:999px;
+    color:#fff;font-family:'Nunito',sans-serif;font-weight:800;font-size:.85rem;
+    padding:8px 20px;cursor:pointer;letter-spacing:.05em;
+    transition:background .2s;
+  ">Skip ›</button>
+</div>
+
+<script>
+(function() {
+  var splash = document.getElementById('splashOverlay');
+  var video  = document.getElementById('splashVideo');
+
+  // Detect mobile: touch device OR narrow viewport
+  var isMobile = ('ontouchstart' in window) || (window.innerWidth <= 768);
+  var src = isMobile ? '/assets/intro-mobile.mp4' : '/assets/intro-pc.mp4';
+
+  // Check if already seen this session
+  if (sessionStorage.getItem('netra_intro_seen')) {
+    splash.style.display = 'none';
+    return;
+  }
+
+  video.src = src;
+
+  function dismissSplash() {
+    sessionStorage.setItem('netra_intro_seen', '1');
+    splash.style.opacity = '0';
+    setTimeout(function() { splash.style.display = 'none'; }, 650);
+  }
+  window.dismissSplash = dismissSplash;
+
+  video.addEventListener('ended', dismissSplash);
+  video.addEventListener('error', dismissSplash);
+
+  // Fallback: hide after 12s in case video stalls
+  setTimeout(dismissSplash, 12000);
+
+  video.play().catch(function() {
+    // Autoplay blocked — dismiss immediately
+    dismissSplash();
+  });
+})();
+</script>
+</body>
+</html>

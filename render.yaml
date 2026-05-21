@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: netra-academy
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_PATH
+        value: /data/netra.sqlite
+      - key: GOOGLE_CLIENT_ID
+        sync: false   # set manually in Render dashboard if using Google OAuth
+    disk:
+      name: netra-data
+      mountPath: /data
+      sizeGB: 1
