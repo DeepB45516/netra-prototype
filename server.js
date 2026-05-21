@@ -107,6 +107,11 @@ function initDb() {
       state_json TEXT NOT NULL,
       updated_at TEXT
     );
+    CREATE TABLE IF NOT EXISTS sessions (
+      token TEXT PRIMARY KEY,
+      user_id TEXT NOT NULL,
+      expires_at TEXT NOT NULL
+    );
   `);
 }
 
@@ -171,6 +176,44 @@ seedDemoUsers();
 
 // Active session: in-memory map of sessionToken → userId
 const activeSessions = new Map();
+const SESSION_MAX_AGE_SECONDS = 60 * 60 * 24 * 30;
+const SESSION_MAX_AGE_MS = SESSION_MAX_AGE_SECONDS * 1000;
+
+function sessionExpiryIso() {
+  return new Date(Date.now() + SESSION_MAX_AGE_MS).toISOString();
+}
+
+function cleanupExpiredSessions() {
+  const now = new Date().toISOString();
+  db.prepare("DELETE FROM sessions WHERE expires_at <= ?").run(now);
+}
+
+function hydrateActiveSessionsFromDb() {
+  cleanupExpiredSessions();
+  const rows = db.prepare(`
+    SELECT s.token, s.user_id
+    FROM sessions s
+    JOIN users u ON u.id = s.user_id
+    WHERE s.expires_at > ?
+  `).all(new Date().toISOString());
+  activeSessions.clear();
+  rows.forEach(row => activeSessions.set(row.token, row.user_id));
+}
+
+function createSession(userId) {
+  const token = `tok-${randomUUID()}`;
+  db.prepare(`
+    INSERT INTO sessions (token, user_id, expires_at)
+    VALUES (?, ?, ?)
+  `).run(token, userId, sessionExpiryIso());
+  activeSessions.set(token, userId);
+  return token;
+}
+
+function deleteSession(token) {
+  db.prepare("DELETE FROM sessions WHERE token = ?").run(token);
+  activeSessions.delete(token);
+}
 
 function getSessionToken(req) {
   const cookieHeader = req.headers.cookie || "";
@@ -179,7 +222,7 @@ function getSessionToken(req) {
 }
 
 function setSessionCookie(res, token) {
-  res.setHeader("Set-Cookie", `netra_session=${token}; Path=/; HttpOnly; SameSite=Lax; Max-Age=2592000`);
+  res.setHeader("Set-Cookie", `netra_session=${token}; Path=/; HttpOnly; SameSite=Lax; Max-Age=${SESSION_MAX_AGE_SECONDS}`);
 }
 
 function clearSessionCookie(res) {
@@ -189,9 +232,32 @@ function clearSessionCookie(res) {
 async function getActiveUser(req) {
   const token = getSessionToken(req);
   if (!token) return null;
-  const userId = activeSessions.get(token);
-  if (!userId) return null;
-  return userId;
+  const now = new Date().toISOString();
+  const cachedUserId = activeSessions.get(token);
+  if (cachedUserId) {
+    const cachedSession = db.prepare(`
+      SELECT s.user_id
+      FROM sessions s
+      JOIN users u ON u.id = s.user_id
+      WHERE s.token = ? AND s.expires_at > ?
+    `).get(token, now);
+    if (cachedSession) return cachedSession.user_id;
+    deleteSession(token);
+    return null;
+  }
+
+  const persistedSession = db.prepare(`
+    SELECT s.user_id
+    FROM sessions s
+    JOIN users u ON u.id = s.user_id
+    WHERE s.token = ? AND s.expires_at > ?
+  `).get(token, now);
+  if (!persistedSession) {
+    deleteSession(token);
+    return null;
+  }
+  activeSessions.set(token, persistedSession.user_id);
+  return persistedSession.user_id;
 }
 
 async function registerUser(name, email, password) {
@@ -219,6 +285,9 @@ async function loginUser(email, password) {
   if (account.password_hash !== simpleHash(password)) return { error: "Incorrect password." };
   return { userId: account.id, name: account.name, email: emailKey };
 }
+
+hydrateActiveSessionsFromDb();
+setInterval(cleanupExpiredSessions, 60 * 60 * 1000).unref();
 
 function simpleHash(str) {
   // Not cryptographically secure — use bcrypt in production
@@ -1261,8 +1330,7 @@ async function handleSignup(req, res) {
   if (password.length < 6) { sendError(res, 400, "Password must be at least 6 characters."); return; }
   const result = await registerUser(name, email, password);
   if (result.error) { sendError(res, 400, result.error); return; }
-  const token = "tok-" + Date.now() + "-" + Math.random().toString(36).slice(2);
-  activeSessions.set(token, result.userId);
+  const token = createSession(result.userId);
   setSessionCookie(res, token);
   sendJson(res, 200, { ok: true, name: result.name });
 }
@@ -1273,8 +1341,7 @@ async function handleLogin(req, res) {
   if (!email || !password) { sendError(res, 400, "Email and password are required."); return; }
   const result = await loginUser(email, password);
   if (result.error) { sendError(res, 401, result.error); return; }
-  const token = "tok-" + Date.now() + "-" + Math.random().toString(36).slice(2);
-  activeSessions.set(token, result.userId);
+  const token = createSession(result.userId);
   setSessionCookie(res, token);
   sendJson(res, 200, { ok: true, name: result.name });
 }
@@ -1288,7 +1355,7 @@ async function handleMe(req, res) {
 
 async function handleLogout(req, res) {
   const token = getSessionToken(req);
-  if (token) activeSessions.delete(token);
+  if (token) deleteSession(token);
   clearSessionCookie(res);
   sendJson(res, 200, { ok: true });
 }
@@ -1359,8 +1426,7 @@ async function handleGoogleAuth(req, res) {
     await writeState(userId, initial);
     account = getUserByEmail(emailKey);
   }
-  const token = "tok-" + Date.now() + "-" + Math.random().toString(36).slice(2);
-  activeSessions.set(token, account.id);
+  const token = createSession(account.id);
   setSessionCookie(res, token);
   sendJson(res, 200, { ok: true, name: account.name });
 }
