@@ -178,6 +178,7 @@ seedDemoUsers();
 const activeSessions = new Map();
 const SESSION_MAX_AGE_SECONDS = 60 * 60 * 24 * 30;
 const SESSION_MAX_AGE_MS = SESSION_MAX_AGE_SECONDS * 1000;
+const SESSION_CLEANUP_INTERVAL_MS = 60 * 60 * 1000;
 
 function sessionExpiryIso() {
   return new Date(Date.now() + SESSION_MAX_AGE_MS).toISOString();
@@ -185,6 +186,8 @@ function sessionExpiryIso() {
 
 function cleanupExpiredSessions() {
   const now = new Date().toISOString();
+  const expired = db.prepare("SELECT token FROM sessions WHERE expires_at <= ?").all(now);
+  expired.forEach(row => activeSessions.delete(row.token));
   db.prepare("DELETE FROM sessions WHERE expires_at <= ?").run(now);
 }
 
@@ -232,30 +235,16 @@ function clearSessionCookie(res) {
 async function getActiveUser(req) {
   const token = getSessionToken(req);
   if (!token) return null;
-  const now = new Date().toISOString();
   const cachedUserId = activeSessions.get(token);
-  if (cachedUserId) {
-    const cachedSession = db.prepare(`
-      SELECT s.user_id
-      FROM sessions s
-      JOIN users u ON u.id = s.user_id
-      WHERE s.token = ? AND s.expires_at > ?
-    `).get(token, now);
-    if (cachedSession) return cachedSession.user_id;
-    deleteSession(token);
-    return null;
-  }
+  if (cachedUserId) return cachedUserId;
 
   const persistedSession = db.prepare(`
     SELECT s.user_id
     FROM sessions s
     JOIN users u ON u.id = s.user_id
     WHERE s.token = ? AND s.expires_at > ?
-  `).get(token, now);
-  if (!persistedSession) {
-    deleteSession(token);
-    return null;
-  }
+  `).get(token, new Date().toISOString());
+  if (!persistedSession) return null;
   activeSessions.set(token, persistedSession.user_id);
   return persistedSession.user_id;
 }
@@ -287,7 +276,7 @@ async function loginUser(email, password) {
 }
 
 hydrateActiveSessionsFromDb();
-setInterval(cleanupExpiredSessions, 60 * 60 * 1000).unref();
+setInterval(cleanupExpiredSessions, SESSION_CLEANUP_INTERVAL_MS).unref();
 
 function simpleHash(str) {
   // Not cryptographically secure — use bcrypt in production
