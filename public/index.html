@@ -285,7 +285,7 @@
       display:flex;align-items:center;justify-content:center;
       opacity:1;transition:opacity .6s ease;
     ">
-      <video id="splashVideo" playsinline muted autoplay
+      <video id="splashVideo" playsinline webkit-playsinline muted autoplay
         style="width:100%;height:100%;object-fit:cover;display:block;"
         preload="auto">
       </video>
@@ -305,8 +305,19 @@
       var isMobile = ('ontouchstart' in window) || (window.innerWidth <= 768);
       var src = (isMobile ? '/assets/intro-mobile.mp4' : '/assets/intro-pc.mp4') + '?t=' + Date.now();
 
+      video.muted = true;
+      video.defaultMuted = true;
+      video.playsInline = true;
+      video.setAttribute('webkit-playsinline', 'true');
       video.src = src;
       video.load();
+
+      function startVideo() {
+        var playPromise = video.play();
+        if (playPromise && typeof playPromise.catch === 'function') {
+          playPromise.catch(function() {});
+        }
+      }
 
       function dismissSplash() {
         splash.style.opacity = '0';
@@ -316,8 +327,9 @@
 
       video.addEventListener('ended', dismissSplash);
       video.addEventListener('error', dismissSplash);
+      video.addEventListener('loadeddata', startVideo, { once: true });
       setTimeout(dismissSplash, 12000);
-      video.play().catch(dismissSplash);
+      startVideo();
     })();
     </script>
   </body>

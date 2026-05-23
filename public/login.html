@@ -302,7 +302,7 @@
 
 <!-- ── VIDEO SPLASH ──────────────────────────────────────────────────────── -->
 <div id="splash">
-  <video id="splashVideo" playsinline muted autoplay preload="auto"
+  <video id="splashVideo" playsinline webkit-playsinline muted autoplay preload="auto"
     style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;"></video>
   <button id="splashSkip" onclick="dismissSplash()">Skip ›</button>
 </div>
@@ -394,8 +394,19 @@
 
   // Reliable mobile detection: touch OR narrow width
   const isMobile = window.matchMedia('(max-width: 768px)').matches || ('ontouchstart' in window);
+  video.muted = true;
+  video.defaultMuted = true;
+  video.playsInline = true;
+  video.setAttribute('webkit-playsinline', 'true');
   video.src = (isMobile ? '/assets/intro-mobile.mp4' : '/assets/intro-pc.mp4') + '?t=' + Date.now();
   video.load();
+
+  function startVideo() {
+    const playPromise = video.play();
+    if (playPromise && typeof playPromise.catch === 'function') {
+      playPromise.catch(() => {});
+    }
+  }
 
   window.dismissSplash = function() {
     splash.classList.add('gone');
@@ -404,9 +415,10 @@
 
   video.addEventListener('ended', dismissSplash);
   video.addEventListener('error', dismissSplash);
+  video.addEventListener('loadeddata', startVideo, { once: true });
   setTimeout(dismissSplash, 14000);
 
-  video.play().catch(dismissSplash);
+  startVideo();
 })();
 
 /* ── AUTH REDIRECT ────────────────────────────────────────────────────────── */
