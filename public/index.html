@@ -53,7 +53,7 @@
       <aside class="sidebar" aria-label="Navigation">
         <div class="brand">
           <div class="brand-mark" aria-hidden="true">
-            <img src="/assets/logo.png" alt="NETRA Logo" style="width:48px;height:48px;border-radius:50%;object-fit:cover;" />
+            <img src="/assets/logo.png" alt="NETRA Logo" />
           </div>
           <div>
             <strong>NETRA</strong>
@@ -63,19 +63,43 @@
 
         <nav class="main-nav" aria-label="Main navigation">
           <button class="nav-tab active" data-tab="learn">
-            <span class="nav-icon">📚</span>
+            <span class="nav-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5V5.5Z" />
+                <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20" />
+                <path d="M8 7h8M8 11h6" />
+              </svg>
+            </span>
             <span data-i18n="learn">Learn</span>
           </button>
           <button class="nav-tab" data-tab="quests">
-            <span class="nav-icon">⚔️</span>
+            <span class="nav-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M12 3l7 3v5c0 4.7-2.8 8.1-7 10-4.2-1.9-7-5.3-7-10V6l7-3Z" />
+                <path d="M9 12l2 2 4-5" />
+              </svg>
+            </span>
             <span data-i18n="quests">Quests</span>
           </button>
           <button class="nav-tab" data-tab="leaderboard">
-            <span class="nav-icon">🏆</span>
+            <span class="nav-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M8 4h8v4a4 4 0 0 1-8 0V4Z" />
+                <path d="M6 5H4v2a4 4 0 0 0 4 4" />
+                <path d="M18 5h2v2a4 4 0 0 1-4 4" />
+                <path d="M12 12v5M9 21h6M10 17h4" />
+              </svg>
+            </span>
             <span data-i18n="leaderboard">Leaderboard</span>
           </button>
           <button class="nav-tab" data-tab="chatbot">
-            <span class="nav-icon">🤖</span>
+            <span class="nav-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M7 8h10a4 4 0 0 1 4 4v3a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4v-3a4 4 0 0 1 4-4Z" />
+                <path d="M12 8V4M9 4h6" />
+                <path d="M8.5 13h.01M15.5 13h.01M9 16h6" />
+              </svg>
+            </span>
             <span data-i18n="chatbot">AI Tutor</span>
           </button>
         </nav>
@@ -281,15 +305,9 @@
       var isMobile = ('ontouchstart' in window) || (window.innerWidth <= 768);
       var src = isMobile ? '/assets/intro-mobile.mp4' : '/assets/intro-pc.mp4';
 
-      if (sessionStorage.getItem('netra_intro_seen')) {
-        splash.style.display = 'none';
-        return;
-      }
-
       video.src = src;
 
       function dismissSplash() {
-        sessionStorage.setItem('netra_intro_seen', '1');
         splash.style.opacity = '0';
         setTimeout(function() { splash.style.display = 'none'; }, 650);
       }

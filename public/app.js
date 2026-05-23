@@ -1107,6 +1107,7 @@ function renderPathMap() {
 function renderLevelTabs(lessonId) {
   const lesson = findLesson(lessonId);
   if (!lesson) { els.levelTabs.innerHTML = ""; return; }
+  const iconSimulation = `<svg class="level-tab-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14v10H5z"/><path d="M8 10h2M9 9v2M14 12h.01M17 12h.01"/><path d="M9 17l-2 3M15 17l2 3"/></svg>`;
   const hasUnlockedLevel = lesson.levels.some(lv => lv.unlocked);
   const selectedLevel = lesson.levels.find(lv => lv.id === state.selected?.levelId) ||
     lesson.levels.find(lv => lv.unlocked) ||
@@ -1129,8 +1130,9 @@ function renderLevelTabs(lessonId) {
     <div class="level-tab-row">
       ${levelButtons}
       <button class="level-tab sim-tab ${!hasUnlockedLevel ? "locked" : ""} ${state.selected?.mode === "simulation" ? "active" : ""}"
-        data-sim-tab="${lessonId}" ${hasUnlockedLevel ? "" : "disabled"}>
-        ðŸŽ­
+        data-sim-tab="${lessonId}" ${hasUnlockedLevel ? "" : "disabled"}
+        title="${t("simulation")}" aria-label="${t("simulation")}">
+        ${iconSimulation}
       </button>
     </div>
     ${sectionButtons}`;

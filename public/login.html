@@ -391,14 +391,12 @@
 (function() {
   const splash = document.getElementById('splash');
   const video  = document.getElementById('splashVideo');
-  if (sessionStorage.getItem('netra_intro_seen')) { splash.remove(); return; }
 
   // Reliable mobile detection: touch OR narrow width
   const isMobile = window.matchMedia('(max-width: 768px)').matches || ('ontouchstart' in window);
   video.src = isMobile ? '/assets/intro-mobile.mp4' : '/assets/intro-pc.mp4';
 
   window.dismissSplash = function() {
-    sessionStorage.setItem('netra_intro_seen','1');
     splash.classList.add('gone');
     setTimeout(() => splash.remove(), 700);
   };
