@@ -574,6 +574,19 @@ function energyReward(amount) {
   renderEnergy();
 }
 
+function renderOutOfEnergyState() {
+  els.activityBody.innerHTML = `
+    <div class="energy-empty-state">
+      <div class="energy-empty-icon">🛡️</div>
+      <h3>${t("noEnergyTitle")}</h3>
+      <p>${t("noEnergyMessage")}</p>
+      <div class="energy-restore-hint">
+        <svg viewBox="0 0 64 64" width="20" height="20"><path class="shield-body" d="M32 4L6 14v16c0 17 11.5 29.5 26 34 14.5-4.5 26-17 26-34V14L32 4Z"/><path class="shield-bolt" d="M34 18l-9 14h9l-2 14 11-16h-10z"/></svg>
+        ${t("energyRestoresHourly")}
+      </div>
+    </div>`;
+}
+
 function renderEnergy() {
   const el = document.getElementById("energyValue");
   if (!el) return;
@@ -1261,16 +1274,7 @@ function showLowEnergyWarning(questionCount, onContinue) {
 async function startQuiz() {
   // Block if energy is zero
   if (state.energy <= 0) {
-    els.activityBody.innerHTML = `
-      <div class="energy-empty-state">
-        <div class="energy-empty-icon">🛡️</div>
-        <h3>${t("noEnergyTitle")}</h3>
-        <p>${t("noEnergyMessage")}</p>
-        <div class="energy-restore-hint">
-          <svg viewBox="0 0 64 64" width="20" height="20"><path class="shield-body" d="M32 4L6 14v16c0 17 11.5 29.5 26 34 14.5-4.5 26-17 26-34V14L32 4Z"/><path class="shield-bolt" d="M34 18l-9 14h9l-2 14 11-16h-10z"/></svg>
-          ${t("energyRestoresHourly")}
-        </div>
-      </div>`;
+    renderOutOfEnergyState();
     return;
   }
 
@@ -1360,6 +1364,10 @@ function appendRetryQuestion() {
 }
 
 function recordQuizAnswer(optionIndex) {
+  if (state.energy <= 0) {
+    renderOutOfEnergyState();
+    return;
+  }
   const question = state.session.questions[state.quizIndex];
   const correct = optionIndex === question.answer;
   const originalIndex = originalQuestionIndex(question);
@@ -1379,6 +1387,11 @@ function recordQuizAnswer(optionIndex) {
   }
   if (!correct) state.correctStreak = 0;
 
+  if (state.energy <= 0) {
+    renderOutOfEnergyState();
+    return;
+  }
+
   state.answerFeedback = {
     questionIndex: state.quizIndex,
     correct,
@@ -1388,6 +1401,10 @@ function recordQuizAnswer(optionIndex) {
 }
 
 async function advanceQuestion() {
+  if (state.energy <= 0) {
+    renderOutOfEnergyState();
+    return;
+  }
   const total = state.session.questions.length;
   state.answerFeedback = null;
 
@@ -1407,6 +1424,10 @@ async function advanceQuestion() {
 
 /* ── RENDER QUESTION ─────────────────────────────────────────────────────── */
 function renderQuestion() {
+  if (state.energy <= 0) {
+    renderOutOfEnergyState();
+    return;
+  }
   const question = state.session.questions[state.quizIndex];
   const total    = state.session.questions.length;
   const selected = state.answers[state.quizIndex];
