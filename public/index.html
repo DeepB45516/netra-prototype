@@ -8,6 +8,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&family=Noto+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link rel="preload" as="video" href="/assets/intro-pc.mp4" media="(min-width: 769px)" />
+    <link rel="preload" as="video" href="/assets/intro-mobile.mp4" media="(max-width: 768px)" />
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
@@ -303,7 +305,7 @@
       var splash = document.getElementById('splashOverlay');
       var video  = document.getElementById('splashVideo');
       var isMobile = ('ontouchstart' in window) || (window.innerWidth <= 768);
-      var src = (isMobile ? '/assets/intro-mobile.mp4' : '/assets/intro-pc.mp4') + '?t=' + Date.now();
+      var src = isMobile ? '/assets/intro-mobile.mp4' : '/assets/intro-pc.mp4';
 
       video.muted = true;
       video.defaultMuted = true;
