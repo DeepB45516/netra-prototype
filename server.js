@@ -1399,25 +1399,43 @@ async function getGooglePublicKeys() {
 
 async function verifyGoogleIdToken(idToken) {
   if (!GOOGLE_CLIENT_ID) throw new Error("GOOGLE_CLIENT_ID not configured");
+
+  // Ensure Web Crypto API is available (Node may need a shim)
+  if (typeof globalThis.crypto === 'undefined' && typeof require === 'function') {
+    try { globalThis.crypto = require('crypto').webcrypto; } catch (e) {}
+  }
+
   const parts = idToken.split(".");
   if (parts.length !== 3) throw new Error("Invalid JWT");
-  const decode = (s) => Buffer.from(s.replace(/-/g,"+").replace(/_/g,"/"), "base64url");
-  const header  = JSON.parse(decode(parts[0]));
-  const payload = JSON.parse(decode(parts[1]));
+
+  const decodeBase64Url = (s) => {
+    s = s.replace(/-/g, '+').replace(/_/g, '/');
+    while (s.length % 4) s += '=';
+    return Buffer.from(s, 'base64');
+  };
+
+  const header  = JSON.parse(decodeBase64Url(parts[0]).toString('utf8'));
+  const payload = JSON.parse(decodeBase64Url(parts[1]).toString('utf8'));
   const now = Math.floor(Date.now() / 1000);
   if (payload.exp < now) throw new Error("Token expired");
   if (payload.aud !== GOOGLE_CLIENT_ID) throw new Error("Token audience mismatch");
   if (payload.iss !== "https://accounts.google.com" && payload.iss !== "accounts.google.com")
     throw new Error("Token issuer mismatch");
+
   const { keys } = await getGooglePublicKeys();
   const jwk = keys.find(k => k.kid === header.kid);
   if (!jwk) throw new Error("Public key not found");
-  const cryptoKey = await globalThis.crypto.subtle.importKey(
+
+  const subtle = globalThis.crypto && globalThis.crypto.subtle ? globalThis.crypto.subtle : null;
+  if (!subtle) throw new Error('WebCrypto.subtle not available in this environment');
+
+  const cryptoKey = await subtle.importKey(
     "jwk", jwk, { name: "RSASSA-PKCS1-v1_5", hash: "SHA-256" }, false, ["verify"]
   );
-  const signingInput = Buffer.from(parts[0] + "." + parts[1]);
-  const signature    = decode(parts[2]);
-  const valid = await globalThis.crypto.subtle.verify(
+
+  const signingInput = new TextEncoder().encode(parts[0] + "." + parts[1]);
+  const signature    = decodeBase64Url(parts[2]);
+  const valid = await subtle.verify(
     "RSASSA-PKCS1-v1_5", cryptoKey, signature, signingInput
   );
   if (!valid) throw new Error("Signature invalid");
