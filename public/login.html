@@ -8,8 +8,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/>
-  <link rel="preload" as="video" href="/assets/intro-pc.mp4" media="(min-width: 769px)" />
-  <link rel="preload" as="video" href="/assets/intro-mobile.mp4" media="(max-width: 768px)" />
   <script src="https://accounts.google.com/gsi/client" async defer onload="initGSI()"></script>
 
   <style>
@@ -304,7 +302,7 @@
 
 <!-- ── VIDEO SPLASH ──────────────────────────────────────────────────────── -->
 <div id="splash">
-  <video id="splashVideo" playsinline webkit-playsinline muted autoplay preload="auto"
+  <video id="splashVideo" playsinline webkit-playsinline muted autoplay preload="metadata"
     style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;"></video>
   <button id="splashSkip" onclick="dismissSplash()">Skip ›</button>
 </div>
@@ -393,32 +391,85 @@
 (function() {
   const splash = document.getElementById('splash');
   const video  = document.getElementById('splashVideo');
+  const introKey = 'netraIntroSeen';
+  let dismissed = false;
+  let attemptedPlay = false;
+  let hasPlayableFrame = false;
 
   // Reliable mobile detection: touch OR narrow width
   const isMobile = window.matchMedia('(max-width: 768px)').matches || ('ontouchstart' in window);
+
+  function storageGet(key) {
+    try { return window.sessionStorage && sessionStorage.getItem(key); }
+    catch (error) { return null; }
+  }
+
+  function storageSet(key, value) {
+    try {
+      if (window.sessionStorage) sessionStorage.setItem(key, value);
+    } catch (error) {}
+  }
+
+  function cleanupVideo() {
+    try {
+      video.pause();
+      video.removeAttribute('src');
+      video.load();
+    } catch (error) {}
+  }
+
+  window.dismissSplash = function(skipAnimation) {
+    if (dismissed) return;
+    dismissed = true;
+    storageSet(introKey, '1');
+    if (skipAnimation) {
+      cleanupVideo();
+      splash.remove();
+      return;
+    }
+    splash.classList.add('gone');
+    setTimeout(() => {
+      cleanupVideo();
+      splash.remove();
+    }, 700);
+  };
+
+  if (storageGet(introKey) === '1') {
+    dismissSplash(true);
+    return;
+  }
+
   video.muted = true;
   video.defaultMuted = true;
   video.playsInline = true;
   video.setAttribute('webkit-playsinline', 'true');
+  video.preload = 'metadata';
   video.src = isMobile ? '/assets/intro-mobile.mp4' : '/assets/intro-pc.mp4';
   video.load();
 
   function startVideo() {
+    if (attemptedPlay || dismissed) return;
+    attemptedPlay = true;
     const playPromise = video.play();
     if (playPromise && typeof playPromise.catch === 'function') {
       playPromise.catch(() => {});
     }
   }
 
-  window.dismissSplash = function() {
-    splash.classList.add('gone');
-    setTimeout(() => splash.remove(), 700);
-  };
+  function markPlayable() {
+    hasPlayableFrame = true;
+    startVideo();
+  }
 
-  video.addEventListener('ended', dismissSplash);
-  video.addEventListener('error', dismissSplash);
-  video.addEventListener('loadeddata', startVideo, { once: true });
-  setTimeout(dismissSplash, 14000);
+  video.addEventListener('ended', () => dismissSplash());
+  video.addEventListener('error', () => dismissSplash());
+  video.addEventListener('loadeddata', markPlayable, { once: true });
+  video.addEventListener('canplay', markPlayable, { once: true });
+  video.addEventListener('playing', () => { hasPlayableFrame = true; }, { once: true });
+  setTimeout(() => {
+    if (!hasPlayableFrame) dismissSplash();
+  }, isMobile ? 2800 : 3500);
+  setTimeout(dismissSplash, isMobile ? 9000 : 12000);
 
   startVideo();
 })();

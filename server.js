@@ -32,7 +32,8 @@ const mimeTypes = {
   ".svg": "image/svg+xml; charset=utf-8",
   ".png": "image/png",
   ".jpg": "image/jpeg",
-  ".jpeg": "image/jpeg"
+  ".jpeg": "image/jpeg",
+  ".mp4": "video/mp4"
 };
 
 const indianLanguages = [
@@ -688,10 +689,61 @@ async function sendStatic(req, res, pathname) {
       return;
     }
     const extension = path.extname(filePath).toLowerCase();
-    res.writeHead(200, {
+    const isAsset = safePath.startsWith("/assets/");
+    const headers = {
       "Content-Type": mimeTypes[extension] || "application/octet-stream",
-      "Cache-Control": "public, max-age=120"
-    });
+      "Cache-Control": isAsset ? "public, max-age=604800" : "public, max-age=120",
+      "Content-Length": stat.size
+    };
+
+    if (extension === ".mp4") {
+      headers["Accept-Ranges"] = "bytes";
+      const range = req.headers.range;
+
+      if (range) {
+        const match = /^bytes=(\d*)-(\d*)$/.exec(range);
+        if (!match) {
+          res.writeHead(416, { ...headers, "Content-Range": `bytes */${stat.size}` });
+          res.end();
+          return;
+        }
+
+        let start = match[1] ? Number(match[1]) : 0;
+        let end = match[2] ? Number(match[2]) : stat.size - 1;
+
+        if (!match[1] && match[2]) {
+          const suffixLength = Number(match[2]);
+          start = Math.max(stat.size - suffixLength, 0);
+          end = stat.size - 1;
+        }
+
+        if (!Number.isFinite(start) || !Number.isFinite(end) || start > end || start >= stat.size) {
+          res.writeHead(416, { ...headers, "Content-Range": `bytes */${stat.size}` });
+          res.end();
+          return;
+        }
+
+        end = Math.min(end, stat.size - 1);
+        const chunkSize = end - start + 1;
+        res.writeHead(206, {
+          ...headers,
+          "Content-Length": chunkSize,
+          "Content-Range": `bytes ${start}-${end}/${stat.size}`
+        });
+        if (req.method === "HEAD") {
+          res.end();
+          return;
+        }
+        fs.createReadStream(filePath, { start, end }).pipe(res);
+        return;
+      }
+    }
+
+    res.writeHead(200, headers);
+    if (req.method === "HEAD") {
+      res.end();
+      return;
+    }
     fs.createReadStream(filePath).pipe(res);
   } catch {
     if (!pathname.startsWith("/api/")) {
