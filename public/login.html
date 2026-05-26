@@ -1,0 +1,554 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+  <title>NETRA – Sign In</title>
+  <link rel="icon" type="image/png" href="/assets/logo.png"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+  <script src="https://accounts.google.com/gsi/client" async defer onload="initGSI()"></script>
+  <!-- Detect mobile and preload the right splash video immediately -->
+  <script>
+    (function() {
+      var isMobile = window.innerWidth <= 768 ||
+        ((navigator.maxTouchPoints || 0) > 0 && window.innerWidth <= 1024);
+      window.__netraSplashSrc = isMobile ? '/assets/intro-mobile.mp4' : '/assets/intro-pc.mp4';
+      try {
+        var link = document.createElement('link');
+        link.rel = 'preload';
+        link.as = 'video';
+        link.href = window.__netraSplashSrc;
+        document.head.appendChild(link);
+      } catch(e) {}
+    })();
+  </script>
+
+  <style>
+    /* ── RESET & BASE ─────────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink:     #1a1a2e;
+      --muted:   #6b7280;
+      --surface: #ffffff;
+      --bg:      #f0f4ff;
+      --border:  #1a1a2e;
+      --teal:    #00c9a7;
+      --blue:    #4c6ef5;
+      --yellow:  #ffe347;
+      --coral:   #ff6b6b;
+      --green:   #40c057;
+      --shadow:      3px 4px 0 #1a1a2e;
+      --shadow-lg:   5px 6px 0 #1a1a2e;
+      --shadow-sm:   2px 3px 0 #1a1a2e;
+      --radius:  16px;
+      --radius-lg: 24px;
+      --ff-display: 'Fredoka One', cursive;
+      --ff-body:    'Nunito', sans-serif;
+    }
+
+    html { font-size: 16px; }
+    body {
+      font-family: var(--ff-body);
+      background: var(--bg);
+      color: var(--ink);
+      min-height: 100dvh;
+      overflow-x: hidden;
+    }
+
+    /* ── VIDEO SPLASH ────────────────────────────────────────────────────── */
+    #splash {
+      position: fixed; inset: 0; z-index: 9999;
+      background: #000;
+      display: flex; align-items: center; justify-content: center;
+      transition: opacity .6s ease;
+    }
+    #splash.gone { opacity: 0; pointer-events: none; }
+    #splashVideo {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+    #splashSkip {
+      position: absolute; bottom: max(24px, env(safe-area-inset-bottom, 24px)); right: 24px;
+      background: rgba(255,255,255,.18); backdrop-filter: blur(8px);
+      border: 1.5px solid rgba(255,255,255,.45); border-radius: 999px;
+      color: #fff; font-family: var(--ff-body); font-weight: 800; font-size: .85rem;
+      padding: 9px 22px; cursor: pointer; z-index: 1;
+      letter-spacing: .04em; transition: background .2s;
+    }
+    #splashSkip:hover { background: rgba(255,255,255,.30); }
+
+    /* ── PAGE LAYOUT ─────────────────────────────────────────────────────── */
+    .page {
+      min-height: 100dvh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr;
+    }
+
+    /* ── LEFT HERO ───────────────────────────────────────────────────────── */
+    .hero {
+      background: var(--yellow);
+      border-right: 3px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 36px;
+      gap: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content:''; position:absolute; width:320px; height:320px;
+      border-radius:50%; background:rgba(255,255,255,.22);
+      top:-90px; right:-90px; pointer-events:none;
+    }
+    .hero::after {
+      content:''; position:absolute; width:220px; height:220px;
+      border-radius:50%; background:rgba(26,26,46,.06);
+      bottom:-70px; left:-70px; pointer-events:none;
+    }
+
+    .hero-brand { display:flex; flex-direction:column; align-items:center; gap:12px; position:relative; z-index:1; }
+    .hero-logo {
+      width:96px; height:96px;
+      background:var(--surface); border:3px solid var(--border);
+      border-radius:22px; display:grid; place-items:center;
+      box-shadow:var(--shadow-lg);
+      animation: float 3s ease-in-out infinite;
+    }
+    .hero-logo img { width:68px; height:68px; object-fit:contain; border-radius:12px; }
+    @keyframes float {
+      0%,100% { transform:translateY(0) rotate(-2deg); }
+      50%      { transform:translateY(-10px) rotate(2deg); }
+    }
+    .hero-name {
+      font-family:var(--ff-display); font-size:3.4rem; color:var(--ink); line-height:1;
+    }
+    .hero-tagline {
+      font-size:.92rem; font-weight:700; color:rgba(26,26,46,.65);
+      text-align:center; line-height:1.5; max-width:210px;
+    }
+    .hero-chips { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; position:relative; z-index:1; }
+    .chip {
+      display:inline-flex; align-items:center; gap:5px;
+      padding:6px 13px;
+      background:var(--surface); border:2px solid var(--border);
+      border-radius:999px; font-weight:800; font-size:.75rem;
+      box-shadow:var(--shadow-sm);
+    }
+    .hero-stats { display:flex; gap:10px; flex-wrap:wrap; justify-content:center; position:relative; z-index:1; }
+    .hstat {
+      text-align:center; background:var(--surface);
+      border:2px solid var(--border); border-radius:var(--radius);
+      padding:10px 14px; box-shadow:var(--shadow-sm); min-width:76px;
+    }
+    .hstat-val { font-family:var(--ff-display); font-size:1.4rem; color:var(--teal); line-height:1; }
+    .hstat-lbl { font-size:.68rem; font-weight:800; color:var(--muted); text-transform:uppercase; letter-spacing:.08em; }
+
+    /* ── RIGHT FORM PANEL ────────────────────────────────────────────────── */
+    .form-panel {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 48px 44px;
+      overflow-y: auto;
+      background: var(--surface);
+    }
+
+    .form-title { font-family:var(--ff-display); font-size:2rem; color:var(--ink); margin-bottom:4px; }
+    .form-sub   { font-size:.88rem; font-weight:600; color:var(--muted); margin-bottom:24px; }
+
+    /* Tabs */
+    .tabs {
+      display:flex; border:2.5px solid var(--border);
+      border-radius:var(--radius); overflow:hidden;
+      box-shadow:var(--shadow-sm); margin-bottom:20px;
+    }
+    .tab {
+      flex:1; padding:11px; border:none;
+      font-family:var(--ff-display); font-size:1rem;
+      color:var(--muted); background:var(--surface); cursor:pointer;
+      transition:background .15s, color .15s;
+    }
+    .tab.active { background:var(--yellow); color:var(--ink); }
+    .tab:not(:last-child) { border-right:2.5px solid var(--border); }
+
+    /* Google btn */
+    .google-btn {
+      display:flex; align-items:center; justify-content:center; gap:10px;
+      width:100%; padding:13px 16px;
+      border:2.5px solid var(--border); border-radius:var(--radius);
+      background:var(--surface); font-weight:800; font-size:.95rem; color:var(--ink);
+      cursor:pointer; box-shadow:var(--shadow); margin-bottom:14px;
+      transition:transform .12s, box-shadow .12s; font-family:var(--ff-body);
+    }
+    .google-btn:hover { transform:translate(-1px,-2px); box-shadow:4px 5px 0 var(--border); }
+    .google-btn svg { width:22px; height:22px; flex-shrink:0; }
+
+    /* GSI container */
+    #gsiWrap { display:none; justify-content:center; margin-bottom:6px; }
+
+    /* Divider */
+    .divider {
+      display:flex; align-items:center; gap:10px; margin-bottom:14px;
+      color:var(--muted); font-size:.8rem; font-weight:700;
+    }
+    .divider::before,.divider::after { content:''; flex:1; height:2px; background:#e5e7eb; border-radius:999px; }
+
+    /* Fields */
+    .field { display:grid; gap:5px; margin-bottom:12px; }
+    .field label {
+      font-size:.7rem; font-weight:900; text-transform:uppercase;
+      letter-spacing:.09em; color:var(--muted);
+    }
+    .field input {
+      width:100%; min-height:48px;
+      border:2.5px solid var(--border); border-radius:var(--radius);
+      padding:0 14px; background:#f7f9ff; color:var(--ink);
+      font-family:var(--ff-body); font-weight:700; font-size:.95rem;
+      box-shadow:2px 3px 0 #e5e7eb;
+      transition:box-shadow .15s, border-color .15s;
+    }
+    .field input:focus {
+      outline:none; border-color:var(--blue);
+      box-shadow:0 0 0 3px rgba(76,110,245,.18), 2px 3px 0 var(--border);
+    }
+
+    /* Submit */
+    .submit-btn {
+      width:100%; min-height:52px;
+      border:2.5px solid var(--border); border-radius:var(--radius);
+      background:var(--teal); color:#fff;
+      font-family:var(--ff-display); font-size:1.1rem; cursor:pointer;
+      box-shadow:var(--shadow); margin-top:4px;
+      transition:transform .12s, box-shadow .12s;
+    }
+    .submit-btn:hover  { transform:translate(-2px,-3px); box-shadow:5px 6px 0 var(--border); }
+    .submit-btn:active { transform:translate(1px,2px);   box-shadow:1px 1px 0 var(--border); }
+    .submit-btn:disabled { opacity:.5; cursor:not-allowed; transform:none; box-shadow:var(--shadow); }
+
+    .err-msg { color:var(--coral); font-weight:800; font-size:.85rem; min-height:18px; margin-top:4px; }
+    .google-err { text-align:center; color:#dc2626; font-size:.82rem; min-height:16px; margin-bottom:4px; font-weight:700; }
+
+    .form-foot { margin-top:14px; text-align:center; font-size:.83rem; color:var(--muted); font-weight:600; }
+    .form-foot a { color:var(--blue); font-weight:800; cursor:pointer; text-decoration:none; }
+    .form-foot a:hover { text-decoration:underline; }
+
+    /* Form panels */
+    .form-body { display:none; }
+    .form-body.active { display:block; }
+
+    /* ════════════════════════════════════════════════════════════════════════
+       MOBILE — everything below 768px
+       ════════════════════════════════════════════════════════════════════════ */
+    @media (max-width: 768px) {
+      .page {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr;
+        min-height: 100dvh;
+      }
+
+      /* Hero: compact horizontal strip on mobile */
+      .hero {
+        border-right: none;
+        border-bottom: 3px solid var(--border);
+        padding: 24px 20px 20px;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 14px;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .hero::before { width:180px; height:180px; top:-50px; right:-50px; }
+      .hero::after  { display:none; }
+
+      .hero-brand {
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+      }
+      .hero-logo { width:54px; height:54px; border-radius:14px; }
+      .hero-logo img { width:38px; height:38px; }
+      .hero-name { font-size:2rem; }
+      .hero-tagline { display:none; }
+      .hero-stats   { display:none; }
+      .hero-chips {
+        gap: 6px;
+        justify-content: flex-end;
+        flex: 1;
+        min-width: 0;
+      }
+      .chip { padding:4px 10px; font-size:.7rem; }
+
+      /* Form panel: full remaining height */
+      .form-panel {
+        padding: 28px 20px max(28px, env(safe-area-inset-bottom, 28px));
+        justify-content: flex-start;
+      }
+
+      .form-title { font-size:1.7rem; }
+      .form-sub   { font-size:.84rem; margin-bottom:18px; }
+
+      .tabs { margin-bottom:16px; }
+      .tab  { padding:10px; font-size:.95rem; }
+
+      .google-btn { font-size:.9rem; padding:12px 14px; margin-bottom:12px; }
+      .field input { min-height:46px; font-size:.92rem; }
+      .submit-btn  { min-height:50px; font-size:1.05rem; }
+    }
+
+    /* ── EXTRA SMALL (360px and below) ───────────────────────────────────── */
+    @media (max-width: 390px) {
+      .hero { padding: 16px; }
+      .hero-logo { width:46px; height:46px; }
+      .hero-name { font-size:1.7rem; }
+      .chip { display:none; }
+      .chip:nth-child(-n+2) { display:inline-flex; }
+      .form-panel { padding: 20px 16px; }
+      .form-title { font-size:1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── VIDEO SPLASH ──────────────────────────────────────────────────────── -->
+<div id="splash">
+  <video id="splashVideo" playsinline webkit-playsinline muted autoplay preload="auto"
+    style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;"></video>
+  <button id="splashSkip" onclick="dismissSplash()">Skip ›</button>
+</div>
+
+<!-- ── MAIN PAGE ─────────────────────────────────────────────────────────── -->
+<div class="page">
+
+  <!-- LEFT: HERO -->
+  <div class="hero">
+    <div class="hero-brand">
+      <div class="hero-logo">
+        <img src="/assets/logo.png" alt="NETRA"/>
+      </div>
+      <div>
+        <div class="hero-name">NETRA</div>
+        <div class="hero-tagline">Your cybersecurity learning companion 🛡️</div>
+      </div>
+    </div>
+    <div class="hero-chips">
+      <span class="chip">📚 Lessons</span>
+      <span class="chip">⚔️ Quests</span>
+      <span class="chip">🏆 Ranks</span>
+      <span class="chip">🤖 AI Tutor</span>
+    </div>
+    <div class="hero-stats">
+      <div class="hstat"><div class="hstat-val">10K+</div><div class="hstat-lbl">Learners</div></div>
+      <div class="hstat"><div class="hstat-val">4</div><div class="hstat-lbl">Grade Paths</div></div>
+      <div class="hstat"><div class="hstat-val">40+</div><div class="hstat-lbl">Lessons</div></div>
+    </div>
+  </div>
+
+  <!-- RIGHT: FORM -->
+  <div class="form-panel">
+    <h2 class="form-title" id="formTitle">Welcome back! 👋</h2>
+    <p class="form-sub" id="formSub">Sign in to continue your learning journey</p>
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="tab active" id="tabSI" onclick="switchTab('si')">Sign In</button>
+      <button class="tab"        id="tabSU" onclick="switchTab('su')">Sign Up</button>
+    </div>
+
+    <!-- Google sign-in -->
+    <div id="gsiWrap"></div>
+    <button class="google-btn" id="googleFallbackBtn" onclick="triggerGoogle()">
+      <svg viewBox="0 0 48 48">
+        <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+        <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+        <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+        <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.36-8.16 2.36-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+      </svg>
+      Continue with Google
+    </button>
+    <p class="google-err" id="gErr"></p>
+
+    <div class="divider">or use email</div>
+
+    <!-- SIGN IN -->
+    <div class="form-body active" id="formSI">
+      <div class="field"><label>Email</label>
+        <input type="email" id="siEmail" placeholder="you@example.com" autocomplete="email"/></div>
+      <div class="field"><label>Password</label>
+        <input type="password" id="siPass" placeholder="Your password" autocomplete="current-password"/></div>
+      <p class="err-msg" id="siErr"></p>
+      <button class="submit-btn" id="siBtn" onclick="doSignIn()">Sign In 🚀</button>
+      <p class="form-foot">No account? <a onclick="switchTab('su')">Create one free</a></p>
+    </div>
+
+    <!-- SIGN UP -->
+    <div class="form-body" id="formSU">
+      <div class="field"><label>Your Name</label>
+        <input type="text" id="suName" placeholder="e.g. Priya" autocomplete="name"/></div>
+      <div class="field"><label>Email</label>
+        <input type="email" id="suEmail" placeholder="you@example.com" autocomplete="email"/></div>
+      <div class="field"><label>Password (min 6 chars)</label>
+        <input type="password" id="suPass" placeholder="Create a password" autocomplete="new-password"/></div>
+      <p class="err-msg" id="suErr"></p>
+      <button class="submit-btn" id="suBtn" onclick="doSignUp()">Create Account ✨</button>
+      <p class="form-foot">Already have an account? <a onclick="switchTab('si')">Sign in</a></p>
+    </div>
+  </div>
+</div><!-- .page -->
+
+<script>
+/* ── SPLASH VIDEO ──────────────────────────────────────────────────────────── */
+(function() {
+  const splash = document.getElementById('splash');
+  const video  = document.getElementById('splashVideo');
+  let dismissed = false;
+
+  // Always play on every page load — no sessionStorage skip
+
+  function cleanupVideo() {
+    try { video.pause(); video.removeAttribute('src'); video.load(); } catch(e) {}
+  }
+
+  const dismissSplash = window.dismissSplash = function(instant) {
+    if (dismissed) return;
+    dismissed = true;
+    cleanupVideo();
+    if (instant) { splash.remove(); return; }
+    splash.classList.add('gone');
+    setTimeout(() => splash.remove(), 700);
+  };
+
+  // Use src detected in <head> (already preloading)
+  const src = window.__netraSplashSrc || '/assets/intro-pc.mp4';
+  video.muted = true;
+  video.defaultMuted = true;
+  video.playsInline = true;
+  video.setAttribute('webkit-playsinline', 'true');
+  video.src = src;
+
+  video.addEventListener('ended', () => dismissSplash());
+  video.addEventListener('error', () => dismissSplash());
+
+  // Safety timeout
+  setTimeout(() => dismissSplash(), 13000);
+
+  // Attempt play immediately
+  const playPromise = video.play();
+  if (playPromise && typeof playPromise.catch === 'function') {
+    playPromise.catch(() => {
+      // Autoplay blocked — dismiss after short delay
+      setTimeout(() => dismissSplash(), 800);
+    });
+  }
+})();
+
+/* ── AUTH REDIRECT ────────────────────────────────────────────────────────── */
+fetch('/api/me').then(r => r.json()).then(d => { if (d.loggedIn) location.href = '/'; });
+
+/* ── TAB SWITCHING ────────────────────────────────────────────────────────── */
+function switchTab(tab) {
+  ['SI','SU'].forEach(t => {
+    document.getElementById('tab'+t).classList.toggle('active', t === tab.toUpperCase());
+    document.getElementById('form'+t).classList.toggle('active', t === tab.toUpperCase());
+  });
+  document.getElementById('formTitle').textContent = tab === 'si' ? 'Welcome back! 👋' : 'Join NETRA 🛡️';
+  document.getElementById('formSub').textContent   = tab === 'si'
+    ? 'Sign in to continue your learning journey'
+    : 'Create your free account and start learning';
+}
+
+/* ── SIGN IN ──────────────────────────────────────────────────────────────── */
+async function doSignIn() {
+  const btn = document.getElementById('siBtn');
+  const err = document.getElementById('siErr');
+  err.textContent = ''; btn.disabled = true; btn.textContent = 'Signing in…';
+  try {
+    const res = await fetch('/api/login', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ email: document.getElementById('siEmail').value.trim(), password: document.getElementById('siPass').value })
+    });
+    const data = await res.json();
+    if (!res.ok) { err.textContent = data.error || 'Sign in failed.'; return; }
+    location.href = '/';
+  } catch { err.textContent = 'Network error. Please try again.'; }
+  finally { btn.disabled = false; btn.textContent = 'Sign In 🚀'; }
+}
+
+/* ── SIGN UP ──────────────────────────────────────────────────────────────── */
+async function doSignUp() {
+  const btn = document.getElementById('suBtn');
+  const err = document.getElementById('suErr');
+  err.textContent = ''; btn.disabled = true; btn.textContent = 'Creating account…';
+  try {
+    const res = await fetch('/api/signup', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        name: document.getElementById('suName').value.trim(),
+        email: document.getElementById('suEmail').value.trim(),
+        password: document.getElementById('suPass').value
+      })
+    });
+    const data = await res.json();
+    if (!res.ok) { err.textContent = data.error || 'Sign up failed.'; return; }
+    location.href = '/';
+  } catch { err.textContent = 'Network error. Please try again.'; }
+  finally { btn.disabled = false; btn.textContent = 'Create Account ✨'; }
+}
+
+/* ── GOOGLE SIGN-IN ───────────────────────────────────────────────────────── */
+let _gsiReady = false, _clientId = null;
+
+function handleGoogleCredential(response) {
+  document.getElementById('gErr').textContent = '';
+  fetch('/api/auth/google', {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({ credential: response.credential })
+  })
+  .then(r => r.json())
+  .then(data => {
+    if (data.ok) { location.href = '/'; }
+    else { document.getElementById('gErr').textContent = data.error || 'Google sign-in failed.'; }
+  })
+  .catch(() => { document.getElementById('gErr').textContent = 'Network error during Google sign-in.'; });
+}
+
+function initGSI() {
+  if (_gsiReady) return;
+  fetch('/api/google-client-id').then(r => r.json()).then(({ clientId }) => {
+    if (!clientId) return;
+    _clientId = clientId; _gsiReady = true;
+    google.accounts.id.initialize({ client_id: clientId, callback: handleGoogleCredential, ux_mode:'popup' });
+    const wrap = document.getElementById('gsiWrap');
+    wrap.style.display = 'flex';
+    google.accounts.id.renderButton(wrap, { theme:'outline', size:'large', width: Math.min(340, window.innerWidth - 40), text:'continue_with', shape:'rectangular' });
+    document.getElementById('googleFallbackBtn').style.display = 'none';
+  }).catch(() => {});
+}
+
+function triggerGoogle() {
+  if (_gsiReady && window.google) { google.accounts.id.prompt(); return; }
+  document.getElementById('gErr').textContent = 'Loading Google Sign-In…';
+  const t = setInterval(() => {
+    if (window.google && google.accounts) {
+      clearInterval(t);
+      initGSI();
+      setTimeout(() => { document.getElementById('gErr').textContent=''; triggerGoogle(); }, 300);
+    }
+  }, 200);
+  setTimeout(() => { clearInterval(t); document.getElementById('gErr').textContent = 'Google Sign-In failed to load.'; }, 8000);
+}
+
+/* ── ENTER KEY ────────────────────────────────────────────────────────────── */
+document.addEventListener('keydown', e => {
+  if (e.key !== 'Enter') return;
+  if (document.getElementById('formSU').classList.contains('active')) doSignUp();
+  else doSignIn();
+});
+</script>
+</body>
+</html>
