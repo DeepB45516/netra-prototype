@@ -1,0 +1,21 @@
+{
+  "name": "netra",
+  "version": "1.0.0",
+  "description": "NETRA — Full-stack gamified cybersecurity training platform.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "better-sqlite3": "^12.10.0",
+    "pg": "^8.21.0"
+  },
+  "keywords": [
+    "cybersecurity",
+    "education",
+    "gamified-learning"
+  ],
+  "author": "",
+  "license": "MIT"
+}
