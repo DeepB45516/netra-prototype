@@ -87,14 +87,360 @@ const pool = new Pool({
   ssl: { rejectUnauthorized: false }
 });
 
+const LOCAL_DB_FILE = path.join(ROOT, "data", "local-db.json");
+let databaseMode = process.env.DATABASE_URL ? "postgres" : "local";
+let localDbCache = null;
+
+function isConnectionFailure(err) {
+  const code = err && err.code;
+  return ["ENOTFOUND", "ECONNREFUSED", "ETIMEDOUT", "EAI_AGAIN", "ECONNRESET", "57P03"].includes(code)
+    || /getaddrinfo|connect|timeout/i.test(err && err.message ? err.message : "");
+}
+
+function cloneJson(value) {
+  return JSON.parse(JSON.stringify(value));
+}
+
+function buildStateTemplate() {
+  try {
+    const statePath = path.join(ROOT, "data", "app-state.json");
+    const raw = fs.readFileSync(statePath, "utf8");
+    return JSON.parse(raw);
+  } catch {
+    return null;
+  }
+}
+
+function loadSeedAccounts() {
+  try {
+    const accountsPath = path.join(ROOT, "data", "accounts.json");
+    const raw = fs.readFileSync(accountsPath, "utf8");
+    const parsed = JSON.parse(raw);
+    return parsed && typeof parsed === "object" ? parsed : {};
+  } catch {
+    return {};
+  }
+}
+
+function makeLocalUserRecord({ id, name, email, passwordHash, createdAt, profile }) {
+  return {
+    id,
+    name: name || "",
+    email: email || null,
+    password_hash: passwordHash || null,
+    created_at: createdAt || new Date().toISOString(),
+    xp: Number(profile?.xp || 0),
+    streak: Number(profile?.streak || 0),
+    avatar_data_url: profile?.avatarDataUrl || null,
+    role: profile?.role || "Student",
+    preferred_language: profile?.preferredLanguage || "English",
+    active_path_id: profile?.activePathId || "grades-6-8",
+    onboarded: profile?.onboarded ? 1 : 0,
+    last_activity_date: profile?.lastActivityDate || null
+  };
+}
+
+async function persistLocalDb() {
+  if (!localDbCache) return;
+  await fsp.mkdir(path.dirname(LOCAL_DB_FILE), { recursive: true });
+  await fsp.writeFile(LOCAL_DB_FILE, JSON.stringify(localDbCache, null, 2), "utf8");
+}
+
+async function ensureLocalDb() {
+  if (localDbCache) return localDbCache;
+
+  try {
+    const raw = await fsp.readFile(LOCAL_DB_FILE, "utf8");
+    localDbCache = JSON.parse(raw);
+    localDbCache.users = localDbCache.users || {};
+    localDbCache.states = localDbCache.states || {};
+    localDbCache.sessions = localDbCache.sessions || {};
+    localDbCache.emailToUserId = localDbCache.emailToUserId || {};
+    return localDbCache;
+  } catch {
+    const seedAccounts = loadSeedAccounts();
+    const templateState = buildStateTemplate();
+    const users = {};
+    const states = {};
+    const emailToUserId = {};
+    const accountEntries = Object.values(seedAccounts);
+    let templateClaimed = false;
+
+    for (const account of accountEntries) {
+      if (!account || !account.userId || !account.email) continue;
+      const normalizedEmail = account.email.toLowerCase().trim();
+      const state = templateState && !templateClaimed
+        ? cloneJson(templateState)
+        : createInitialState();
+
+      templateClaimed = true;
+      state.profile.id = account.userId;
+      state.profile.name = account.name || state.profile.name || "";
+      state.profile.createdAt = account.createdAt || state.profile.createdAt || new Date().toISOString();
+      if (!state.profile.onboarded) state.profile.onboarded = true;
+
+      users[account.userId] = makeLocalUserRecord({
+        id: account.userId,
+        name: account.name,
+        email: normalizedEmail,
+        passwordHash: account.passwordHash,
+        createdAt: account.createdAt,
+        profile: state.profile
+      });
+      states[account.userId] = state;
+      emailToUserId[normalizedEmail] = account.userId;
+    }
+
+    localDbCache = {
+      users,
+      states,
+      sessions: {},
+      emailToUserId
+    };
+    await persistLocalDb();
+    return localDbCache;
+  }
+}
+
+function localSortUsers(store) {
+  return Object.values(store.users).sort((a, b) => {
+    const xpDiff = Number(b.xp || 0) - Number(a.xp || 0);
+    if (xpDiff !== 0) return xpDiff;
+    const streakDiff = Number(b.streak || 0) - Number(a.streak || 0);
+    if (streakDiff !== 0) return streakDiff;
+    return String(a.created_at || "").localeCompare(String(b.created_at || ""));
+  });
+}
+
+async function localQuery(sql, params = []) {
+  const store = await ensureLocalDb();
+  const normalizedSql = sql.replace(/\s+/g, " ").trim().toUpperCase();
+
+  if (normalizedSql.startsWith("CREATE TABLE IF NOT EXISTS")) {
+    return [];
+  }
+
+  if (normalizedSql === "DELETE FROM SESSIONS WHERE EXPIRES_AT < $1") {
+    const cutoff = String(params[0] || "");
+    for (const [token, session] of Object.entries(store.sessions)) {
+      if (String(session.expiresAt || session.expires_at || "") < cutoff) {
+        delete store.sessions[token];
+      }
+    }
+    await persistLocalDb();
+    return [];
+  }
+
+  if (normalizedSql === "SELECT COUNT(1) AS COUNT FROM USERS") {
+    return [{ count: Object.keys(store.users).length }];
+  }
+
+  if (normalizedSql.startsWith("INSERT INTO USERS") && normalizedSql.includes("ON CONFLICT (ID) DO NOTHING")) {
+    const [id, name, email, passwordHash, createdAt, xp, streak] = params;
+    const normalizedEmail = email ? String(email).toLowerCase().trim() : null;
+    if (!store.users[id]) {
+      store.users[id] = {
+        id,
+        name: name || "",
+        email: normalizedEmail,
+        password_hash: passwordHash || null,
+        created_at: createdAt || new Date().toISOString(),
+        xp: Number(xp || 0),
+        streak: Number(streak || 0),
+        avatar_data_url: null,
+        role: "Student",
+        preferred_language: "English",
+        active_path_id: "grades-6-8",
+        onboarded: 1,
+        last_activity_date: null
+      };
+      if (normalizedEmail) store.emailToUserId[normalizedEmail] = id;
+      if (!store.states[id]) {
+        const state = createInitialState();
+        state.profile.id = id;
+        state.profile.name = name || "";
+        state.profile.xp = Number(xp || 0);
+        state.profile.streak = Number(streak || 0);
+        state.profile.onboarded = true;
+        store.states[id] = state;
+      }
+      await persistLocalDb();
+    }
+    return [];
+  }
+
+  if (normalizedSql.startsWith("INSERT INTO USERS") && normalizedSql.includes("ON CONFLICT (EMAIL) DO NOTHING")) {
+    const [id, name, email, createdAt] = params;
+    const normalizedEmail = email ? String(email).toLowerCase().trim() : null;
+    if (normalizedEmail && store.emailToUserId[normalizedEmail]) {
+      return [];
+    }
+    store.users[id] = {
+      id,
+      name: name || "",
+      email: normalizedEmail,
+      password_hash: null,
+      created_at: createdAt || new Date().toISOString(),
+      xp: 0,
+      streak: 0,
+      avatar_data_url: null,
+      role: "Student",
+      preferred_language: "English",
+      active_path_id: "grades-6-8",
+      onboarded: 0,
+      last_activity_date: null
+    };
+    if (normalizedEmail) store.emailToUserId[normalizedEmail] = id;
+    if (!store.states[id]) {
+      const state = createInitialState();
+      state.profile.id = id;
+      state.profile.name = name || "";
+      store.states[id] = state;
+    }
+    await persistLocalDb();
+    return [];
+  }
+
+  if (normalizedSql.startsWith("INSERT INTO USERS") && !normalizedSql.includes("ON CONFLICT")) {
+    const [id, name, email, passwordHash, createdAt] = params;
+    const normalizedEmail = email ? String(email).toLowerCase().trim() : null;
+    store.users[id] = {
+      id,
+      name: name || "",
+      email: normalizedEmail,
+      password_hash: passwordHash || null,
+      created_at: createdAt || new Date().toISOString(),
+      xp: 0,
+      streak: 0,
+      avatar_data_url: null,
+      role: "Student",
+      preferred_language: "English",
+      active_path_id: "grades-6-8",
+      onboarded: 0,
+      last_activity_date: null
+    };
+    if (normalizedEmail) store.emailToUserId[normalizedEmail] = id;
+    if (!store.states[id]) {
+      const state = createInitialState();
+      state.profile.id = id;
+      state.profile.name = name || "";
+      store.states[id] = state;
+    }
+    await persistLocalDb();
+    return [];
+  }
+
+  if (normalizedSql.startsWith("INSERT INTO USER_STATE") && normalizedSql.includes("ON CONFLICT (USER_ID) DO NOTHING")) {
+    const [userId, stateJson] = params;
+    if (!store.states[userId]) {
+      store.states[userId] = JSON.parse(stateJson);
+      await persistLocalDb();
+    }
+    return [];
+  }
+
+  if (normalizedSql.startsWith("INSERT INTO SESSIONS") && normalizedSql.includes("ON CONFLICT (TOKEN) DO UPDATE SET EXPIRES_AT=$4")) {
+    const [token, userId, createdAt, expiresAt] = params;
+    store.sessions[token] = { userId, createdAt, expiresAt };
+    await persistLocalDb();
+    return [];
+  }
+
+  if (normalizedSql === "SELECT USER_ID, EXPIRES_AT FROM SESSIONS WHERE TOKEN=$1") {
+    const token = params[0];
+    const session = store.sessions[token];
+    if (!session) return [];
+    return [{ user_id: session.userId, expires_at: session.expiresAt }];
+  }
+
+  if (normalizedSql === "DELETE FROM SESSIONS WHERE TOKEN=$1") {
+    const token = params[0];
+    if (token && store.sessions[token]) {
+      delete store.sessions[token];
+      await persistLocalDb();
+    }
+    return [];
+  }
+
+  if (normalizedSql === "SELECT * FROM USERS WHERE EMAIL=$1") {
+    const email = String(params[0] || "").toLowerCase().trim();
+    const userId = store.emailToUserId[email];
+    return userId ? [store.users[userId]] : [];
+  }
+
+  if (normalizedSql === "SELECT * FROM USERS WHERE ID=$1") {
+    const userId = params[0];
+    return store.users[userId] ? [store.users[userId]] : [];
+  }
+
+  if (normalizedSql.startsWith("INSERT INTO USERS") && normalizedSql.includes("ON CONFLICT (ID) DO UPDATE SET")) {
+    const [userId, name, email, passwordHash, createdAt, xp, streak, avatarDataUrl, role, preferredLanguage, activePathId, onboarded, lastActivityDate] = params;
+    const existing = store.users[userId] || {};
+    const normalizedEmail = email ? String(email).toLowerCase().trim() : existing.email || null;
+    store.users[userId] = {
+      id: userId,
+      name: name || existing.name || "",
+      email: normalizedEmail,
+      password_hash: passwordHash || existing.password_hash || null,
+      created_at: createdAt || existing.created_at || new Date().toISOString(),
+      xp: Number(xp || 0),
+      streak: Number(streak || 0),
+      avatar_data_url: avatarDataUrl || null,
+      role: role || "Student",
+      preferred_language: preferredLanguage || "English",
+      active_path_id: activePathId || "grades-6-8",
+      onboarded: onboarded ? 1 : 0,
+      last_activity_date: lastActivityDate || null
+    };
+    if (normalizedEmail) store.emailToUserId[normalizedEmail] = userId;
+    await persistLocalDb();
+    return [];
+  }
+
+  if (normalizedSql === "SELECT STATE_JSON FROM USER_STATE WHERE USER_ID=$1") {
+    const userId = params[0];
+    const state = store.states[userId];
+    return state ? [{ state_json: JSON.stringify(state) }] : [];
+  }
+
+  if (normalizedSql.startsWith("INSERT INTO USER_STATE") && normalizedSql.includes("ON CONFLICT (USER_ID) DO UPDATE SET STATE_JSON=$2, UPDATED_AT=$3")) {
+    const [userId, stateJson] = params;
+    store.states[userId] = JSON.parse(stateJson);
+    await persistLocalDb();
+    return [];
+  }
+
+  if (normalizedSql === "SELECT ID, NAME, XP, STREAK FROM USERS ORDER BY XP DESC, STREAK DESC, CREATED_AT ASC") {
+    return localSortUsers(store).map((user) => ({
+      id: user.id,
+      name: user.name,
+      xp: user.xp,
+      streak: user.streak,
+      created_at: user.created_at
+    }));
+  }
+
+  throw new Error(`Local DB does not support query: ${sql}`);
+}
+
 // Helper: run a query and return rows
 async function q(sql, params = []) {
-  const client = await pool.connect();
+  if (databaseMode !== "postgres") {
+    return localQuery(sql, params);
+  }
+  let client;
   try {
-    const result = await client.query(sql, params);
-    return result.rows;
+    client = await pool.connect();
+    return (await client.query(sql, params)).rows;
+  } catch (err) {
+    if (isConnectionFailure(err)) {
+      databaseMode = "local";
+      console.warn(`⚠️ Postgres unavailable, using local storage: ${err.message}`);
+      return localQuery(sql, params);
+    }
+    throw err;
   } finally {
-    client.release();
+    if (client) client.release();
   }
 }
 async function q1(sql, params = []) {
@@ -343,7 +689,7 @@ function simpleHash(str) {
   try {
     await initDb();
     await seedDemoUsers();
-    console.log("✅ Database ready");
+    console.log(databaseMode === "postgres" ? "✅ Database ready" : "✅ Local storage ready");
   } catch (err) {
     console.error("❌ DB init failed:", err.message);
   }

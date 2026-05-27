@@ -1,0 +1,1920 @@
+{
+  "users": {
+    "user-1779256781860-w5o4kv": {
+      "id": "user-1779256781860-w5o4kv",
+      "name": "deep",
+      "email": "deepbiswas45510@gmail.com",
+      "password_hash": "hbgawvy8",
+      "created_at": "2026-05-20T05:59:41.860Z",
+      "xp": 303,
+      "streak": 1,
+      "avatar_data_url": "data:image/jpeg;base64,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",
+      "role": "Student",
+      "preferred_language": "English",
+      "active_path_id": "grades-6-8",
+      "onboarded": 1,
+      "last_activity_date": "2026-05-20"
+    },
+    "user-1779256914816-vwiq3l": {
+      "id": "user-1779256914816-vwiq3l",
+      "name": "deep",
+      "email": "deep@google.user",
+      "password_hash": "h59zbuek",
+      "created_at": "2026-05-20T06:01:54.816Z",
+      "xp": 0,
+      "streak": 0,
+      "avatar_data_url": null,
+      "role": "Student",
+      "preferred_language": "English",
+      "active_path_id": "grades-6-8",
+      "onboarded": 1,
+      "last_activity_date": null
+    }
+  },
+  "states": {
+    "user-1779256781860-w5o4kv": {
+      "profile": {
+        "id": "user-1779256781860-w5o4kv",
+        "name": "deep",
+        "role": "Student",
+        "activePathId": "grades-6-8",
+        "preferredLanguage": "English",
+        "avatarDataUrl": "data:image/jpeg;base64,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",
+        "avatarColor": "#18a999",
+        "onboarded": true,
+        "xp": 303,
+        "streak": 1,
+        "lastActivityDate": "2026-05-20",
+        "createdAt": "2026-05-20T05:59:41.860Z",
+        "profileUpdatedAt": "2026-05-20T09:00:00.351Z",
+        "avatarConfig": null
+      },
+      "progress": {
+        "grades-6-8": {
+          "completedLevels": [
+            "lesson-1:level-1"
+          ],
+          "completedSimulations": [
+            "lesson-1-scenario-1",
+            "lesson-1-scenario-2"
+          ],
+          "lessonAccuracy": {
+            "lesson-1:level-1:section-1": 1,
+            "lesson-1:level-1:section-2": 1,
+            "lesson-1:level-1:section-3": 1,
+            "lesson-1:level-1:section-4": 1,
+            "lesson-1:level-1:section-5": 1
+          },
+          "currentLessonId": "lesson-1",
+          "currentLevelId": "level-2",
+          "completedSections": [
+            "lesson-1:level-1:section-1",
+            "lesson-1:level-1:section-2",
+            "lesson-1:level-1:section-3",
+            "lesson-1:level-1:section-4",
+            "lesson-1:level-1:section-5"
+          ],
+          "sectionAccuracy": {
+            "lesson-1:level-1:section-1": 1,
+            "lesson-1:level-1:section-2": 1,
+            "lesson-1:level-1:section-3": 1,
+            "lesson-1:level-1:section-4": 1,
+            "lesson-1:level-1:section-5": 1
+          },
+          "currentSectionId": "section-1"
+        },
+        "grades-9-10": {
+          "completedLevels": [],
+          "completedSections": [],
+          "completedSimulations": [],
+          "lessonAccuracy": {},
+          "sectionAccuracy": {},
+          "currentLessonId": "lesson-1",
+          "currentLevelId": "level-1",
+          "currentSectionId": "section-1"
+        },
+        "adults-parents": {
+          "completedLevels": [],
+          "completedSections": [],
+          "completedSimulations": [],
+          "lessonAccuracy": {},
+          "sectionAccuracy": {},
+          "currentLessonId": "lesson-1",
+          "currentLevelId": "level-1",
+          "currentSectionId": "section-1"
+        }
+      },
+      "attempts": [
+        {
+          "id": "3931b645-4185-4d91-bc15-6f0f4cbca972",
+          "type": "quiz-start",
+          "pathId": "grades-6-8",
+          "lessonId": "lesson-1",
+          "levelId": "level-1",
+          "sectionId": "section-1",
+          "questionCount": 8,
+          "answerKey": [
+            0,
+            1,
+            1,
+            1,
+            2,
+            1,
+            0,
+            1
+          ],
+          "questions": [
+            {
+              "id": "q-1-1-1",
+              "prompt": "What is the best sign that a download deserves extra caution?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "It promises free rewards and asks you to disable security settings",
+                "It comes from an official app store or vendor page",
+                "It has clear reviews from known sources",
+                "It explains what permissions it needs"
+              ],
+              "answer": 0,
+              "explanation": "Requests to disable protections are a serious warning sign. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-1-2",
+              "prompt": "A public Wi-Fi network at a cafe has no password. Which action is safest?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "Use it for banking because it is convenient",
+                "Avoid sensitive tasks or use a trusted hotspot or VPN",
+                "Turn off updates to save data",
+                "Share the network password with everyone nearby"
+              ],
+              "answer": 1,
+              "explanation": "Open networks are easier to monitor. Sensitive tasks should wait or use a safer connection. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-1-3",
+              "prompt": "A quiz asks for your full name, school, birthday, and home address to reveal your 'cyber hero name.' What should you do?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "Enter everything so the result is accurate",
+                "Give only the information you are comfortable sharing or skip it",
+                "Use a parent's payment card instead",
+                "Send the quiz to younger students"
+              ],
+              "answer": 1,
+              "explanation": "Fun quizzes can collect personal data. You can decline or minimize what you share. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-1-4",
+              "prompt": "Which message is most likely to be a scam?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "Your teacher posts homework inside the official classroom app",
+                "A bank text asks you to move money to a 'safe account' right now",
+                "A parent reminds you to update your device tonight",
+                "A known store receipt arrives after a purchase you made"
+              ],
+              "answer": 1,
+              "explanation": "Pressure to move money quickly is a classic scam pattern. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-1-5",
+              "prompt": "What should you do after clicking a suspicious link by mistake?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "Ignore it if nothing happens right away",
+                "Enter fake details to test the page",
+                "Close it, do not enter information, and report it to a trusted person",
+                "Share the link so others can inspect it"
+              ],
+              "answer": 2,
+              "explanation": "Fast reporting and avoiding data entry reduce the risk. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-1-6",
+              "prompt": "An app requests access to your contacts, camera, microphone, and location for a simple puzzle game. What is a safe response?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "Accept all permissions because games need everything",
+                "Deny permissions that do not match the app's purpose",
+                "Give it your password instead",
+                "Turn off the lock screen"
+              ],
+              "answer": 1,
+              "explanation": "Permissions should fit the app's real function. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-1-7",
+              "prompt": "Which action helps a family recover faster after an account breach?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "Keep recovery email and phone details current",
+                "Delete all messages without checking them",
+                "Use one shared password for every account",
+                "Avoid telling anyone"
+              ],
+              "answer": 0,
+              "explanation": "Current recovery details make it easier to regain control safely. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-1-8",
+              "prompt": "A caller says they are from tech support and asks to remote-control your device. What should you do?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "Give control if they sound professional",
+                "Hang up and contact the company using its official support page",
+                "Read out all saved passwords",
+                "Install whatever they request"
+              ],
+              "answer": 1,
+              "explanation": "Unexpected support calls are risky. Start a new conversation through official channels. Topic focus: Password Power."
+            }
+          ],
+          "createdAt": "2026-05-16T07:43:09.402Z"
+        },
+        {
+          "id": "807a7d60-04b0-4e25-88a1-e783a02eb125",
+          "type": "quiz-complete",
+          "pathId": "grades-6-8",
+          "lessonId": "lesson-1",
+          "levelId": "level-1",
+          "sectionId": "section-1",
+          "correct": 6,
+          "total": 8,
+          "accuracy": 0.75,
+          "passed": true,
+          "createdAt": "2026-05-16T07:43:39.208Z"
+        },
+        {
+          "id": "5ff062bf-a065-43fb-ad4f-69c914796ebf",
+          "type": "quiz-start",
+          "pathId": "grades-6-8",
+          "lessonId": "lesson-1",
+          "levelId": "level-1",
+          "sectionId": "section-2",
+          "questionCount": 8,
+          "answerKey": [
+            1,
+            1,
+            1,
+            2,
+            1,
+            0,
+            1,
+            1
+          ],
+          "questions": [
+            {
+              "id": "q-1-2-1",
+              "prompt": "A public Wi-Fi network at a cafe has no password. Which action is safest?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "Use it for banking because it is convenient",
+                "Avoid sensitive tasks or use a trusted hotspot or VPN",
+                "Turn off updates to save data",
+                "Share the network password with everyone nearby"
+              ],
+              "answer": 1,
+              "explanation": "Open networks are easier to monitor. Sensitive tasks should wait or use a safer connection. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-2-2",
+              "prompt": "A quiz asks for your full name, school, birthday, and home address to reveal your 'cyber hero name.' What should you do?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "Enter everything so the result is accurate",
+                "Give only the information you are comfortable sharing or skip it",
+                "Use a parent's payment card instead",
+                "Send the quiz to younger students"
+              ],
+              "answer": 1,
+              "explanation": "Fun quizzes can collect personal data. You can decline or minimize what you share. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-2-3",
+              "prompt": "Which message is most likely to be a scam?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "Your teacher posts homework inside the official classroom app",
+                "A bank text asks you to move money to a 'safe account' right now",
+                "A parent reminds you to update your device tonight",
+                "A known store receipt arrives after a purchase you made"
+              ],
+              "answer": 1,
+              "explanation": "Pressure to move money quickly is a classic scam pattern. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-2-4",
+              "prompt": "What should you do after clicking a suspicious link by mistake?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "Ignore it if nothing happens right away",
+                "Enter fake details to test the page",
+                "Close it, do not enter information, and report it to a trusted person",
+                "Share the link so others can inspect it"
+              ],
+              "answer": 2,
+              "explanation": "Fast reporting and avoiding data entry reduce the risk. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-2-5",
+              "prompt": "An app requests access to your contacts, camera, microphone, and location for a simple puzzle game. What is a safe response?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "Accept all permissions because games need everything",
+                "Deny permissions that do not match the app's purpose",
+                "Give it your password instead",
+                "Turn off the lock screen"
+              ],
+              "answer": 1,
+              "explanation": "Permissions should fit the app's real function. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-2-6",
+              "prompt": "Which action helps a family recover faster after an account breach?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "Keep recovery email and phone details current",
+                "Delete all messages without checking them",
+                "Use one shared password for every account",
+                "Avoid telling anyone"
+              ],
+              "answer": 0,
+              "explanation": "Current recovery details make it easier to regain control safely. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-2-7",
+              "prompt": "A caller says they are from tech support and asks to remote-control your device. What should you do?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "Give control if they sound professional",
+                "Hang up and contact the company using its official support page",
+                "Read out all saved passwords",
+                "Install whatever they request"
+              ],
+              "answer": 1,
+              "explanation": "Unexpected support calls are risky. Start a new conversation through official channels. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-2-8",
+              "prompt": "What makes multi-factor authentication useful?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "It makes passwords unnecessary everywhere",
+                "It adds another proof step if a password is stolen",
+                "It lets friends log in for you",
+                "It hides all online activity"
+              ],
+              "answer": 1,
+              "explanation": "MFA helps block sign-ins that only have the password. Topic focus: Password Power."
+            }
+          ],
+          "createdAt": "2026-05-16T07:43:43.978Z"
+        },
+        {
+          "id": "488e07ac-265a-4f55-8fd7-46215fb3e11d",
+          "type": "quiz-start",
+          "pathId": "grades-6-8",
+          "lessonId": "lesson-1",
+          "levelId": "level-1",
+          "sectionId": "section-2",
+          "questionCount": 8,
+          "answerKey": [
+            1,
+            1,
+            1,
+            2,
+            1,
+            0,
+            1,
+            1
+          ],
+          "questions": [
+            {
+              "id": "q-1-2-1",
+              "prompt": "A public Wi-Fi network at a cafe has no password. Which action is safest?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "Use it for banking because it is convenient",
+                "Avoid sensitive tasks or use a trusted hotspot or VPN",
+                "Turn off updates to save data",
+                "Share the network password with everyone nearby"
+              ],
+              "answer": 1,
+              "explanation": "Open networks are easier to monitor. Sensitive tasks should wait or use a safer connection. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-2-2",
+              "prompt": "A quiz asks for your full name, school, birthday, and home address to reveal your 'cyber hero name.' What should you do?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "Enter everything so the result is accurate",
+                "Give only the information you are comfortable sharing or skip it",
+                "Use a parent's payment card instead",
+                "Send the quiz to younger students"
+              ],
+              "answer": 1,
+              "explanation": "Fun quizzes can collect personal data. You can decline or minimize what you share. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-2-3",
+              "prompt": "Which message is most likely to be a scam?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "Your teacher posts homework inside the official classroom app",
+                "A bank text asks you to move money to a 'safe account' right now",
+                "A parent reminds you to update your device tonight",
+                "A known store receipt arrives after a purchase you made"
+              ],
+              "answer": 1,
+              "explanation": "Pressure to move money quickly is a classic scam pattern. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-2-4",
+              "prompt": "What should you do after clicking a suspicious link by mistake?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "Ignore it if nothing happens right away",
+                "Enter fake details to test the page",
+                "Close it, do not enter information, and report it to a trusted person",
+                "Share the link so others can inspect it"
+              ],
+              "answer": 2,
+              "explanation": "Fast reporting and avoiding data entry reduce the risk. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-2-5",
+              "prompt": "An app requests access to your contacts, camera, microphone, and location for a simple puzzle game. What is a safe response?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "Accept all permissions because games need everything",
+                "Deny permissions that do not match the app's purpose",
+                "Give it your password instead",
+                "Turn off the lock screen"
+              ],
+              "answer": 1,
+              "explanation": "Permissions should fit the app's real function. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-2-6",
+              "prompt": "Which action helps a family recover faster after an account breach?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "Keep recovery email and phone details current",
+                "Delete all messages without checking them",
+                "Use one shared password for every account",
+                "Avoid telling anyone"
+              ],
+              "answer": 0,
+              "explanation": "Current recovery details make it easier to regain control safely. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-2-7",
+              "prompt": "A caller says they are from tech support and asks to remote-control your device. What should you do?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "Give control if they sound professional",
+                "Hang up and contact the company using its official support page",
+                "Read out all saved passwords",
+                "Install whatever they request"
+              ],
+              "answer": 1,
+              "explanation": "Unexpected support calls are risky. Start a new conversation through official channels. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-2-8",
+              "prompt": "What makes multi-factor authentication useful?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "It makes passwords unnecessary everywhere",
+                "It adds another proof step if a password is stolen",
+                "It lets friends log in for you",
+                "It hides all online activity"
+              ],
+              "answer": 1,
+              "explanation": "MFA helps block sign-ins that only have the password. Topic focus: Password Power."
+            }
+          ],
+          "createdAt": "2026-05-16T10:33:17.710Z"
+        },
+        {
+          "id": "010d2fc2-0f55-4e68-a069-0279228725c2",
+          "type": "quiz-start",
+          "pathId": "grades-6-8",
+          "lessonId": "lesson-1",
+          "levelId": "level-1",
+          "sectionId": "section-2",
+          "questionCount": 8,
+          "answerKey": [
+            1,
+            1,
+            1,
+            2,
+            1,
+            0,
+            1,
+            1
+          ],
+          "questions": [
+            {
+              "id": "q-1-2-1",
+              "prompt": "A public Wi-Fi network at a cafe has no password. Which action is safest?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "Use it for banking because it is convenient",
+                "Avoid sensitive tasks or use a trusted hotspot or VPN",
+                "Turn off updates to save data",
+                "Share the network password with everyone nearby"
+              ],
+              "answer": 1,
+              "explanation": "Open networks are easier to monitor. Sensitive tasks should wait or use a safer connection. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-2-2",
+              "prompt": "A quiz asks for your full name, school, birthday, and home address to reveal your 'cyber hero name.' What should you do?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "Enter everything so the result is accurate",
+                "Give only the information you are comfortable sharing or skip it",
+                "Use a parent's payment card instead",
+                "Send the quiz to younger students"
+              ],
+              "answer": 1,
+              "explanation": "Fun quizzes can collect personal data. You can decline or minimize what you share. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-2-3",
+              "prompt": "Which message is most likely to be a scam?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "Your teacher posts homework inside the official classroom app",
+                "A bank text asks you to move money to a 'safe account' right now",
+                "A parent reminds you to update your device tonight",
+                "A known store receipt arrives after a purchase you made"
+              ],
+              "answer": 1,
+              "explanation": "Pressure to move money quickly is a classic scam pattern. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-2-4",
+              "prompt": "What should you do after clicking a suspicious link by mistake?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "Ignore it if nothing happens right away",
+                "Enter fake details to test the page",
+                "Close it, do not enter information, and report it to a trusted person",
+                "Share the link so others can inspect it"
+              ],
+              "answer": 2,
+              "explanation": "Fast reporting and avoiding data entry reduce the risk. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-2-5",
+              "prompt": "An app requests access to your contacts, camera, microphone, and location for a simple puzzle game. What is a safe response?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "Accept all permissions because games need everything",
+                "Deny permissions that do not match the app's purpose",
+                "Give it your password instead",
+                "Turn off the lock screen"
+              ],
+              "answer": 1,
+              "explanation": "Permissions should fit the app's real function. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-2-6",
+              "prompt": "Which action helps a family recover faster after an account breach?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "Keep recovery email and phone details current",
+                "Delete all messages without checking them",
+                "Use one shared password for every account",
+                "Avoid telling anyone"
+              ],
+              "answer": 0,
+              "explanation": "Current recovery details make it easier to regain control safely. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-2-7",
+              "prompt": "A caller says they are from tech support and asks to remote-control your device. What should you do?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "Give control if they sound professional",
+                "Hang up and contact the company using its official support page",
+                "Read out all saved passwords",
+                "Install whatever they request"
+              ],
+              "answer": 1,
+              "explanation": "Unexpected support calls are risky. Start a new conversation through official channels. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-2-8",
+              "prompt": "What makes multi-factor authentication useful?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "It makes passwords unnecessary everywhere",
+                "It adds another proof step if a password is stolen",
+                "It lets friends log in for you",
+                "It hides all online activity"
+              ],
+              "answer": 1,
+              "explanation": "MFA helps block sign-ins that only have the password. Topic focus: Password Power."
+            }
+          ],
+          "createdAt": "2026-05-16T10:39:47.707Z"
+        },
+        {
+          "id": "97784497-b9c5-4ebf-9926-9ba81b1bf6f2",
+          "type": "quiz-complete",
+          "pathId": "grades-6-8",
+          "lessonId": "lesson-1",
+          "levelId": "level-1",
+          "sectionId": "section-2",
+          "correct": 8,
+          "total": 8,
+          "accuracy": 1,
+          "passed": true,
+          "createdAt": "2026-05-16T10:40:13.826Z"
+        },
+        {
+          "id": "a97656a0-caa0-475e-80b5-1ff5066d3234",
+          "type": "simulation",
+          "pathId": "grades-6-8",
+          "lessonId": "lesson-1",
+          "scenarioId": "lesson-1-scenario-1",
+          "choiceId": "a",
+          "safe": true,
+          "createdAt": "2026-05-16T10:40:24.965Z"
+        },
+        {
+          "id": "7ad397fe-fc3b-4ef8-9b48-e197c9f0a273",
+          "type": "quiz-start",
+          "pathId": "grades-6-8",
+          "lessonId": "lesson-1",
+          "levelId": "level-1",
+          "sectionId": "section-1",
+          "questionCount": 8,
+          "answerKey": [
+            0,
+            1,
+            1,
+            1,
+            2,
+            1,
+            0,
+            1
+          ],
+          "questions": [
+            {
+              "id": "q-1-1-1",
+              "prompt": "What is the best sign that a download deserves extra caution?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "It promises free rewards and asks you to disable security settings",
+                "It comes from an official app store or vendor page",
+                "It has clear reviews from known sources",
+                "It explains what permissions it needs"
+              ],
+              "answer": 0,
+              "explanation": "Requests to disable protections are a serious warning sign. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-1-2",
+              "prompt": "A public Wi-Fi network at a cafe has no password. Which action is safest?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "Use it for banking because it is convenient",
+                "Avoid sensitive tasks or use a trusted hotspot or VPN",
+                "Turn off updates to save data",
+                "Share the network password with everyone nearby"
+              ],
+              "answer": 1,
+              "explanation": "Open networks are easier to monitor. Sensitive tasks should wait or use a safer connection. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-1-3",
+              "prompt": "A quiz asks for your full name, school, birthday, and home address to reveal your 'cyber hero name.' What should you do?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "Enter everything so the result is accurate",
+                "Give only the information you are comfortable sharing or skip it",
+                "Use a parent's payment card instead",
+                "Send the quiz to younger students"
+              ],
+              "answer": 1,
+              "explanation": "Fun quizzes can collect personal data. You can decline or minimize what you share. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-1-4",
+              "prompt": "Which message is most likely to be a scam?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "Your teacher posts homework inside the official classroom app",
+                "A bank text asks you to move money to a 'safe account' right now",
+                "A parent reminds you to update your device tonight",
+                "A known store receipt arrives after a purchase you made"
+              ],
+              "answer": 1,
+              "explanation": "Pressure to move money quickly is a classic scam pattern. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-1-5",
+              "prompt": "What should you do after clicking a suspicious link by mistake?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "Ignore it if nothing happens right away",
+                "Enter fake details to test the page",
+                "Close it, do not enter information, and report it to a trusted person",
+                "Share the link so others can inspect it"
+              ],
+              "answer": 2,
+              "explanation": "Fast reporting and avoiding data entry reduce the risk. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-1-6",
+              "prompt": "An app requests access to your contacts, camera, microphone, and location for a simple puzzle game. What is a safe response?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "Accept all permissions because games need everything",
+                "Deny permissions that do not match the app's purpose",
+                "Give it your password instead",
+                "Turn off the lock screen"
+              ],
+              "answer": 1,
+              "explanation": "Permissions should fit the app's real function. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-1-7",
+              "prompt": "Which action helps a family recover faster after an account breach?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "Keep recovery email and phone details current",
+                "Delete all messages without checking them",
+                "Use one shared password for every account",
+                "Avoid telling anyone"
+              ],
+              "answer": 0,
+              "explanation": "Current recovery details make it easier to regain control safely. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-1-8",
+              "prompt": "A caller says they are from tech support and asks to remote-control your device. What should you do?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "Give control if they sound professional",
+                "Hang up and contact the company using its official support page",
+                "Read out all saved passwords",
+                "Install whatever they request"
+              ],
+              "answer": 1,
+              "explanation": "Unexpected support calls are risky. Start a new conversation through official channels. Topic focus: Password Power."
+            }
+          ],
+          "createdAt": "2026-05-17T06:34:31.750Z"
+        },
+        {
+          "id": "1f3ee60c-88f9-4924-8d9a-ae241580781c",
+          "type": "quiz-complete",
+          "pathId": "grades-6-8",
+          "lessonId": "lesson-1",
+          "levelId": "level-1",
+          "sectionId": "section-1",
+          "correct": 2,
+          "total": 8,
+          "accuracy": 0.25,
+          "passed": false,
+          "createdAt": "2026-05-17T06:34:58.050Z"
+        },
+        {
+          "id": "e3e4bce7-64f0-4a6a-9d1e-182c9c0f7e42",
+          "type": "quiz-start",
+          "pathId": "grades-6-8",
+          "lessonId": "lesson-1",
+          "levelId": "level-1",
+          "sectionId": "section-1",
+          "questionCount": 8,
+          "answerKey": [
+            0,
+            1,
+            1,
+            1,
+            2,
+            1,
+            1,
+            2
+          ],
+          "questions": [
+            {
+              "id": "q-1-1-1",
+              "prompt": "What is the best sign that a download deserves extra caution?",
+              "topic": "Password Power",
+              "difficulty": "support",
+              "options": [
+                "It promises free rewards and asks you to disable security settings",
+                "It comes from an official app store or vendor page",
+                "It has clear reviews from known sources",
+                "It explains what permissions it needs"
+              ],
+              "answer": 0,
+              "explanation": "Requests to disable protections are a serious warning sign. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-1-2",
+              "prompt": "A public Wi-Fi network at a cafe has no password. Which action is safest?",
+              "topic": "Password Power",
+              "difficulty": "support",
+              "options": [
+                "Use it for banking because it is convenient",
+                "Avoid sensitive tasks or use a trusted hotspot or VPN",
+                "Turn off updates to save data",
+                "Share the network password with everyone nearby"
+              ],
+              "answer": 1,
+              "explanation": "Open networks are easier to monitor. Sensitive tasks should wait or use a safer connection. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-1-3",
+              "prompt": "A quiz asks for your full name, school, birthday, and home address to reveal your 'cyber hero name.' What should you do?",
+              "topic": "Password Power",
+              "difficulty": "support",
+              "options": [
+                "Enter everything so the result is accurate",
+                "Give only the information you are comfortable sharing or skip it",
+                "Use a parent's payment card instead",
+                "Send the quiz to younger students"
+              ],
+              "answer": 1,
+              "explanation": "Fun quizzes can collect personal data. You can decline or minimize what you share. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-1-4",
+              "prompt": "Which message is most likely to be a scam?",
+              "topic": "Password Power",
+              "difficulty": "support",
+              "options": [
+                "Your teacher posts homework inside the official classroom app",
+                "A bank text asks you to move money to a 'safe account' right now",
+                "A parent reminds you to update your device tonight",
+                "A known store receipt arrives after a purchase you made"
+              ],
+              "answer": 1,
+              "explanation": "Pressure to move money quickly is a classic scam pattern. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-1-5",
+              "prompt": "What should you do after clicking a suspicious link by mistake?",
+              "topic": "Password Power",
+              "difficulty": "support",
+              "options": [
+                "Ignore it if nothing happens right away",
+                "Enter fake details to test the page",
+                "Close it, do not enter information, and report it to a trusted person",
+                "Share the link so others can inspect it"
+              ],
+              "answer": 2,
+              "explanation": "Fast reporting and avoiding data entry reduce the risk. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-1-6",
+              "prompt": "A message says your account will be closed in 10 minutes unless you sign in through a link. What is the safest first move?",
+              "topic": "Password Power",
+              "difficulty": "support",
+              "options": [
+                "Open the link immediately so the account stays active",
+                "Use the official app or website directly and check alerts there",
+                "Reply with your password so support can verify you",
+                "Forward the message to friends to ask if it is real"
+              ],
+              "answer": 1,
+              "explanation": "Urgent account warnings are common phishing hooks. Going directly to the official service avoids a fake link. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-1-7",
+              "prompt": "Which password habit is strongest for a school, game, or shopping account?",
+              "topic": "Password Power",
+              "difficulty": "support",
+              "options": [
+                "Use the same password everywhere so it is easy to remember",
+                "Use a unique long password or passphrase for each important account",
+                "Use your pet's name and birth year",
+                "Share your password only with close friends"
+              ],
+              "answer": 1,
+              "explanation": "Unique passwords limit damage if one account is exposed. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-1-8",
+              "prompt": "A friend asks for a login code that was texted to your phone. What should you do?",
+              "topic": "Password Power",
+              "difficulty": "support",
+              "options": [
+                "Send the code because friends are safe",
+                "Post the code in the group chat",
+                "Do not share the code and contact the friend another way",
+                "Try the code on several websites"
+              ],
+              "answer": 2,
+              "explanation": "Login codes are account keys. A request for one may mean the friend's account was taken over. Topic focus: Password Power."
+            }
+          ],
+          "createdAt": "2026-05-17T06:35:02.516Z"
+        },
+        {
+          "id": "d1234666-5c6c-4f31-8179-2c28224482f2",
+          "type": "quiz-start",
+          "pathId": "grades-6-8",
+          "lessonId": "lesson-1",
+          "levelId": "level-1",
+          "sectionId": "section-3",
+          "questionCount": 8,
+          "answerKey": [
+            1,
+            1,
+            2,
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          "questions": [
+            {
+              "id": "q-1-3-1",
+              "prompt": "A quiz asks for your full name, school, birthday, and home address to reveal your 'cyber hero name.' What should you do?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "Enter everything so the result is accurate",
+                "Give only the information you are comfortable sharing or skip it",
+                "Use a parent's payment card instead",
+                "Send the quiz to younger students"
+              ],
+              "answer": 1,
+              "explanation": "Fun quizzes can collect personal data. You can decline or minimize what you share. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-3-2",
+              "prompt": "Which message is most likely to be a scam?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "Your teacher posts homework inside the official classroom app",
+                "A bank text asks you to move money to a 'safe account' right now",
+                "A parent reminds you to update your device tonight",
+                "A known store receipt arrives after a purchase you made"
+              ],
+              "answer": 1,
+              "explanation": "Pressure to move money quickly is a classic scam pattern. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-3-3",
+              "prompt": "What should you do after clicking a suspicious link by mistake?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "Ignore it if nothing happens right away",
+                "Enter fake details to test the page",
+                "Close it, do not enter information, and report it to a trusted person",
+                "Share the link so others can inspect it"
+              ],
+              "answer": 2,
+              "explanation": "Fast reporting and avoiding data entry reduce the risk. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-3-4",
+              "prompt": "An app requests access to your contacts, camera, microphone, and location for a simple puzzle game. What is a safe response?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "Accept all permissions because games need everything",
+                "Deny permissions that do not match the app's purpose",
+                "Give it your password instead",
+                "Turn off the lock screen"
+              ],
+              "answer": 1,
+              "explanation": "Permissions should fit the app's real function. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-3-5",
+              "prompt": "Which action helps a family recover faster after an account breach?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "Keep recovery email and phone details current",
+                "Delete all messages without checking them",
+                "Use one shared password for every account",
+                "Avoid telling anyone"
+              ],
+              "answer": 0,
+              "explanation": "Current recovery details make it easier to regain control safely. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-3-6",
+              "prompt": "A caller says they are from tech support and asks to remote-control your device. What should you do?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "Give control if they sound professional",
+                "Hang up and contact the company using its official support page",
+                "Read out all saved passwords",
+                "Install whatever they request"
+              ],
+              "answer": 1,
+              "explanation": "Unexpected support calls are risky. Start a new conversation through official channels. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-3-7",
+              "prompt": "What makes multi-factor authentication useful?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "It makes passwords unnecessary everywhere",
+                "It adds another proof step if a password is stolen",
+                "It lets friends log in for you",
+                "It hides all online activity"
+              ],
+              "answer": 1,
+              "explanation": "MFA helps block sign-ins that only have the password. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-3-8",
+              "prompt": "A message says your account will be closed in 10 minutes unless you sign in through a link. What is the safest first move?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "Open the link immediately so the account stays active",
+                "Use the official app or website directly and check alerts there",
+                "Reply with your password so support can verify you",
+                "Forward the message to friends to ask if it is real"
+              ],
+              "answer": 1,
+              "explanation": "Urgent account warnings are common phishing hooks. Going directly to the official service avoids a fake link. Topic focus: Password Power."
+            }
+          ],
+          "createdAt": "2026-05-18T04:43:41.019Z"
+        },
+        {
+          "id": "92bed246-34de-4fd5-91e0-17b7269adbd4",
+          "type": "simulation",
+          "pathId": "grades-6-8",
+          "lessonId": "lesson-1",
+          "scenarioId": "lesson-1-scenario-2",
+          "choiceId": "a",
+          "safe": true,
+          "createdAt": "2026-05-18T04:43:43.124Z"
+        },
+        {
+          "id": "3c9b8413-ee93-4fcc-b3e7-a207f8e03f16",
+          "type": "quiz-start",
+          "pathId": "grades-6-8",
+          "lessonId": "lesson-1",
+          "levelId": "level-1",
+          "sectionId": "section-1",
+          "questionCount": 8,
+          "answerKey": [
+            0,
+            1,
+            1,
+            1,
+            2,
+            1,
+            1,
+            2
+          ],
+          "questions": [
+            {
+              "id": "q-1-1-1",
+              "prompt": "What is the best sign that a download deserves extra caution?",
+              "topic": "Password Power",
+              "difficulty": "support",
+              "options": [
+                "It promises free rewards and asks you to disable security settings",
+                "It comes from an official app store or vendor page",
+                "It has clear reviews from known sources",
+                "It explains what permissions it needs"
+              ],
+              "answer": 0,
+              "explanation": "Requests to disable protections are a serious warning sign. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-1-2",
+              "prompt": "A public Wi-Fi network at a cafe has no password. Which action is safest?",
+              "topic": "Password Power",
+              "difficulty": "support",
+              "options": [
+                "Use it for banking because it is convenient",
+                "Avoid sensitive tasks or use a trusted hotspot or VPN",
+                "Turn off updates to save data",
+                "Share the network password with everyone nearby"
+              ],
+              "answer": 1,
+              "explanation": "Open networks are easier to monitor. Sensitive tasks should wait or use a safer connection. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-1-3",
+              "prompt": "A quiz asks for your full name, school, birthday, and home address to reveal your 'cyber hero name.' What should you do?",
+              "topic": "Password Power",
+              "difficulty": "support",
+              "options": [
+                "Enter everything so the result is accurate",
+                "Give only the information you are comfortable sharing or skip it",
+                "Use a parent's payment card instead",
+                "Send the quiz to younger students"
+              ],
+              "answer": 1,
+              "explanation": "Fun quizzes can collect personal data. You can decline or minimize what you share. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-1-4",
+              "prompt": "Which message is most likely to be a scam?",
+              "topic": "Password Power",
+              "difficulty": "support",
+              "options": [
+                "Your teacher posts homework inside the official classroom app",
+                "A bank text asks you to move money to a 'safe account' right now",
+                "A parent reminds you to update your device tonight",
+                "A known store receipt arrives after a purchase you made"
+              ],
+              "answer": 1,
+              "explanation": "Pressure to move money quickly is a classic scam pattern. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-1-5",
+              "prompt": "What should you do after clicking a suspicious link by mistake?",
+              "topic": "Password Power",
+              "difficulty": "support",
+              "options": [
+                "Ignore it if nothing happens right away",
+                "Enter fake details to test the page",
+                "Close it, do not enter information, and report it to a trusted person",
+                "Share the link so others can inspect it"
+              ],
+              "answer": 2,
+              "explanation": "Fast reporting and avoiding data entry reduce the risk. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-1-6",
+              "prompt": "A message says your account will be closed in 10 minutes unless you sign in through a link. What is the safest first move?",
+              "topic": "Password Power",
+              "difficulty": "support",
+              "options": [
+                "Open the link immediately so the account stays active",
+                "Use the official app or website directly and check alerts there",
+                "Reply with your password so support can verify you",
+                "Forward the message to friends to ask if it is real"
+              ],
+              "answer": 1,
+              "explanation": "Urgent account warnings are common phishing hooks. Going directly to the official service avoids a fake link. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-1-7",
+              "prompt": "Which password habit is strongest for a school, game, or shopping account?",
+              "topic": "Password Power",
+              "difficulty": "support",
+              "options": [
+                "Use the same password everywhere so it is easy to remember",
+                "Use a unique long password or passphrase for each important account",
+                "Use your pet's name and birth year",
+                "Share your password only with close friends"
+              ],
+              "answer": 1,
+              "explanation": "Unique passwords limit damage if one account is exposed. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-1-8",
+              "prompt": "A friend asks for a login code that was texted to your phone. What should you do?",
+              "topic": "Password Power",
+              "difficulty": "support",
+              "options": [
+                "Send the code because friends are safe",
+                "Post the code in the group chat",
+                "Do not share the code and contact the friend another way",
+                "Try the code on several websites"
+              ],
+              "answer": 2,
+              "explanation": "Login codes are account keys. A request for one may mean the friend's account was taken over. Topic focus: Password Power."
+            }
+          ],
+          "createdAt": "2026-05-18T05:10:40.214Z"
+        },
+        {
+          "id": "cfb995d1-89b3-4ce7-b12c-6cbd3bbbced1",
+          "type": "quiz-complete",
+          "pathId": "grades-6-8",
+          "lessonId": "lesson-1",
+          "levelId": "level-1",
+          "sectionId": "section-1",
+          "correct": 8,
+          "total": 8,
+          "accuracy": 1,
+          "passed": true,
+          "createdAt": "2026-05-18T05:11:53.105Z"
+        },
+        {
+          "id": "504e8581-c24d-4292-9dde-ae0e6dc57e37",
+          "type": "quiz-complete",
+          "pathId": "grades-6-8",
+          "lessonId": "lesson-1",
+          "levelId": "level-1",
+          "sectionId": "section-1",
+          "correct": 8,
+          "total": 8,
+          "accuracy": 1,
+          "passed": true,
+          "createdAt": "2026-05-18T05:11:55.966Z"
+        },
+        {
+          "id": "88956209-b47f-4dfb-a1fa-b05d25b44d76",
+          "type": "quiz-complete",
+          "pathId": "grades-6-8",
+          "lessonId": "lesson-1",
+          "levelId": "level-1",
+          "sectionId": "section-1",
+          "correct": 8,
+          "total": 8,
+          "accuracy": 1,
+          "passed": true,
+          "createdAt": "2026-05-18T05:11:56.274Z"
+        },
+        {
+          "id": "e3cd8ef7-3c41-48f6-a521-d252247bce24",
+          "type": "quiz-complete",
+          "pathId": "grades-6-8",
+          "lessonId": "lesson-1",
+          "levelId": "level-1",
+          "sectionId": "section-1",
+          "correct": 8,
+          "total": 8,
+          "accuracy": 1,
+          "passed": true,
+          "createdAt": "2026-05-18T05:11:56.450Z"
+        },
+        {
+          "id": "84ba8e66-a67e-4b53-b046-13943609866a",
+          "type": "quiz-complete",
+          "pathId": "grades-6-8",
+          "lessonId": "lesson-1",
+          "levelId": "level-1",
+          "sectionId": "section-1",
+          "correct": 8,
+          "total": 8,
+          "accuracy": 1,
+          "passed": true,
+          "createdAt": "2026-05-18T05:11:56.627Z"
+        },
+        {
+          "id": "86bfab5b-8da4-452c-87f8-d7e119143d0b",
+          "type": "quiz-complete",
+          "pathId": "grades-6-8",
+          "lessonId": "lesson-1",
+          "levelId": "level-1",
+          "sectionId": "section-1",
+          "correct": 8,
+          "total": 8,
+          "accuracy": 1,
+          "passed": true,
+          "createdAt": "2026-05-18T05:11:56.801Z"
+        },
+        {
+          "id": "2e96adb2-ba33-44de-a87e-5ce06e7db205",
+          "type": "quiz-start",
+          "pathId": "grades-6-8",
+          "lessonId": "lesson-1",
+          "levelId": "level-1",
+          "sectionId": "section-3",
+          "questionCount": 8,
+          "answerKey": [
+            1,
+            1,
+            2,
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          "questions": [
+            {
+              "id": "q-1-3-1",
+              "prompt": "A quiz asks for your full name, school, birthday, and home address to reveal your 'cyber hero name.' What should you do?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "Enter everything so the result is accurate",
+                "Give only the information you are comfortable sharing or skip it",
+                "Use a parent's payment card instead",
+                "Send the quiz to younger students"
+              ],
+              "answer": 1,
+              "explanation": "Fun quizzes can collect personal data. You can decline or minimize what you share. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-3-2",
+              "prompt": "Which message is most likely to be a scam?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "Your teacher posts homework inside the official classroom app",
+                "A bank text asks you to move money to a 'safe account' right now",
+                "A parent reminds you to update your device tonight",
+                "A known store receipt arrives after a purchase you made"
+              ],
+              "answer": 1,
+              "explanation": "Pressure to move money quickly is a classic scam pattern. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-3-3",
+              "prompt": "What should you do after clicking a suspicious link by mistake?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "Ignore it if nothing happens right away",
+                "Enter fake details to test the page",
+                "Close it, do not enter information, and report it to a trusted person",
+                "Share the link so others can inspect it"
+              ],
+              "answer": 2,
+              "explanation": "Fast reporting and avoiding data entry reduce the risk. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-3-4",
+              "prompt": "An app requests access to your contacts, camera, microphone, and location for a simple puzzle game. What is a safe response?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "Accept all permissions because games need everything",
+                "Deny permissions that do not match the app's purpose",
+                "Give it your password instead",
+                "Turn off the lock screen"
+              ],
+              "answer": 1,
+              "explanation": "Permissions should fit the app's real function. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-3-5",
+              "prompt": "Which action helps a family recover faster after an account breach?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "Keep recovery email and phone details current",
+                "Delete all messages without checking them",
+                "Use one shared password for every account",
+                "Avoid telling anyone"
+              ],
+              "answer": 0,
+              "explanation": "Current recovery details make it easier to regain control safely. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-3-6",
+              "prompt": "A caller says they are from tech support and asks to remote-control your device. What should you do?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "Give control if they sound professional",
+                "Hang up and contact the company using its official support page",
+                "Read out all saved passwords",
+                "Install whatever they request"
+              ],
+              "answer": 1,
+              "explanation": "Unexpected support calls are risky. Start a new conversation through official channels. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-3-7",
+              "prompt": "What makes multi-factor authentication useful?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "It makes passwords unnecessary everywhere",
+                "It adds another proof step if a password is stolen",
+                "It lets friends log in for you",
+                "It hides all online activity"
+              ],
+              "answer": 1,
+              "explanation": "MFA helps block sign-ins that only have the password. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-3-8",
+              "prompt": "A message says your account will be closed in 10 minutes unless you sign in through a link. What is the safest first move?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "Open the link immediately so the account stays active",
+                "Use the official app or website directly and check alerts there",
+                "Reply with your password so support can verify you",
+                "Forward the message to friends to ask if it is real"
+              ],
+              "answer": 1,
+              "explanation": "Urgent account warnings are common phishing hooks. Going directly to the official service avoids a fake link. Topic focus: Password Power."
+            }
+          ],
+          "createdAt": "2026-05-20T08:51:09.133Z"
+        },
+        {
+          "id": "262b22b4-07d4-418c-8b04-da227f6334bd",
+          "type": "quiz-complete",
+          "pathId": "grades-6-8",
+          "lessonId": "lesson-1",
+          "levelId": "level-1",
+          "sectionId": "section-3",
+          "correct": 8,
+          "total": 8,
+          "accuracy": 1,
+          "passed": true,
+          "createdAt": "2026-05-20T08:51:38.034Z"
+        },
+        {
+          "id": "44261c29-adba-4bd8-aa4d-a612d4753c5c",
+          "type": "quiz-start",
+          "pathId": "grades-6-8",
+          "lessonId": "lesson-1",
+          "levelId": "level-1",
+          "sectionId": "section-3",
+          "questionCount": 8,
+          "answerKey": [
+            1,
+            1,
+            2,
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          "questions": [
+            {
+              "id": "q-1-3-1",
+              "prompt": "A quiz asks for your full name, school, birthday, and home address to reveal your 'cyber hero name.' What should you do?",
+              "topic": "Password Power",
+              "difficulty": "challenge",
+              "options": [
+                "Enter everything so the result is accurate",
+                "Give only the information you are comfortable sharing or skip it",
+                "Use a parent's payment card instead",
+                "Send the quiz to younger students"
+              ],
+              "answer": 1,
+              "explanation": "Fun quizzes can collect personal data. You can decline or minimize what you share. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-3-2",
+              "prompt": "Which message is most likely to be a scam?",
+              "topic": "Password Power",
+              "difficulty": "challenge",
+              "options": [
+                "Your teacher posts homework inside the official classroom app",
+                "A bank text asks you to move money to a 'safe account' right now",
+                "A parent reminds you to update your device tonight",
+                "A known store receipt arrives after a purchase you made"
+              ],
+              "answer": 1,
+              "explanation": "Pressure to move money quickly is a classic scam pattern. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-3-3",
+              "prompt": "What should you do after clicking a suspicious link by mistake?",
+              "topic": "Password Power",
+              "difficulty": "challenge",
+              "options": [
+                "Ignore it if nothing happens right away",
+                "Enter fake details to test the page",
+                "Close it, do not enter information, and report it to a trusted person",
+                "Share the link so others can inspect it"
+              ],
+              "answer": 2,
+              "explanation": "Fast reporting and avoiding data entry reduce the risk. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-3-4",
+              "prompt": "An app requests access to your contacts, camera, microphone, and location for a simple puzzle game. What is a safe response?",
+              "topic": "Password Power",
+              "difficulty": "challenge",
+              "options": [
+                "Accept all permissions because games need everything",
+                "Deny permissions that do not match the app's purpose",
+                "Give it your password instead",
+                "Turn off the lock screen"
+              ],
+              "answer": 1,
+              "explanation": "Permissions should fit the app's real function. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-3-5",
+              "prompt": "Which action helps a family recover faster after an account breach?",
+              "topic": "Password Power",
+              "difficulty": "challenge",
+              "options": [
+                "Keep recovery email and phone details current",
+                "Delete all messages without checking them",
+                "Use one shared password for every account",
+                "Avoid telling anyone"
+              ],
+              "answer": 0,
+              "explanation": "Current recovery details make it easier to regain control safely. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-3-6",
+              "prompt": "A caller says they are from tech support and asks to remote-control your device. What should you do?",
+              "topic": "Password Power",
+              "difficulty": "challenge",
+              "options": [
+                "Give control if they sound professional",
+                "Hang up and contact the company using its official support page",
+                "Read out all saved passwords",
+                "Install whatever they request"
+              ],
+              "answer": 1,
+              "explanation": "Unexpected support calls are risky. Start a new conversation through official channels. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-3-7",
+              "prompt": "What makes multi-factor authentication useful?",
+              "topic": "Password Power",
+              "difficulty": "challenge",
+              "options": [
+                "It makes passwords unnecessary everywhere",
+                "It adds another proof step if a password is stolen",
+                "It lets friends log in for you",
+                "It hides all online activity"
+              ],
+              "answer": 1,
+              "explanation": "MFA helps block sign-ins that only have the password. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-3-8",
+              "prompt": "You receive a scholarship form from a lookalike domain that asks for your school login and a payment processing fee. What combination of clues should guide your response?",
+              "topic": "Password Power",
+              "difficulty": "challenge",
+              "options": [
+                "The scholarship topic and the low fee make it safe",
+                "The lookalike domain, credential request, and fee are enough to verify through official school channels",
+                "Any form with a logo is trustworthy",
+                "Payment requests are safe when they are small"
+              ],
+              "answer": 1,
+              "explanation": "Multiple risk signals together mean you should verify independently before sharing anything. Topic focus: Password Power."
+            }
+          ],
+          "createdAt": "2026-05-20T08:51:40.692Z"
+        },
+        {
+          "id": "c1801dda-6be1-4cb3-bde4-6541cf20d29b",
+          "type": "quiz-start",
+          "pathId": "grades-6-8",
+          "lessonId": "lesson-1",
+          "levelId": "level-1",
+          "sectionId": "section-4",
+          "questionCount": 8,
+          "answerKey": [
+            1,
+            2,
+            1,
+            0,
+            1,
+            1,
+            1,
+            1
+          ],
+          "questions": [
+            {
+              "id": "q-1-4-1",
+              "prompt": "Which message is most likely to be a scam?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "Your teacher posts homework inside the official classroom app",
+                "A bank text asks you to move money to a 'safe account' right now",
+                "A parent reminds you to update your device tonight",
+                "A known store receipt arrives after a purchase you made"
+              ],
+              "answer": 1,
+              "explanation": "Pressure to move money quickly is a classic scam pattern. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-4-2",
+              "prompt": "What should you do after clicking a suspicious link by mistake?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "Ignore it if nothing happens right away",
+                "Enter fake details to test the page",
+                "Close it, do not enter information, and report it to a trusted person",
+                "Share the link so others can inspect it"
+              ],
+              "answer": 2,
+              "explanation": "Fast reporting and avoiding data entry reduce the risk. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-4-3",
+              "prompt": "An app requests access to your contacts, camera, microphone, and location for a simple puzzle game. What is a safe response?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "Accept all permissions because games need everything",
+                "Deny permissions that do not match the app's purpose",
+                "Give it your password instead",
+                "Turn off the lock screen"
+              ],
+              "answer": 1,
+              "explanation": "Permissions should fit the app's real function. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-4-4",
+              "prompt": "Which action helps a family recover faster after an account breach?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "Keep recovery email and phone details current",
+                "Delete all messages without checking them",
+                "Use one shared password for every account",
+                "Avoid telling anyone"
+              ],
+              "answer": 0,
+              "explanation": "Current recovery details make it easier to regain control safely. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-4-5",
+              "prompt": "A caller says they are from tech support and asks to remote-control your device. What should you do?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "Give control if they sound professional",
+                "Hang up and contact the company using its official support page",
+                "Read out all saved passwords",
+                "Install whatever they request"
+              ],
+              "answer": 1,
+              "explanation": "Unexpected support calls are risky. Start a new conversation through official channels. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-4-6",
+              "prompt": "What makes multi-factor authentication useful?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "It makes passwords unnecessary everywhere",
+                "It adds another proof step if a password is stolen",
+                "It lets friends log in for you",
+                "It hides all online activity"
+              ],
+              "answer": 1,
+              "explanation": "MFA helps block sign-ins that only have the password. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-4-7",
+              "prompt": "A message says your account will be closed in 10 minutes unless you sign in through a link. What is the safest first move?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "Open the link immediately so the account stays active",
+                "Use the official app or website directly and check alerts there",
+                "Reply with your password so support can verify you",
+                "Forward the message to friends to ask if it is real"
+              ],
+              "answer": 1,
+              "explanation": "Urgent account warnings are common phishing hooks. Going directly to the official service avoids a fake link. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-4-8",
+              "prompt": "Which password habit is strongest for a school, game, or shopping account?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "Use the same password everywhere so it is easy to remember",
+                "Use a unique long password or passphrase for each important account",
+                "Use your pet's name and birth year",
+                "Share your password only with close friends"
+              ],
+              "answer": 1,
+              "explanation": "Unique passwords limit damage if one account is exposed. Topic focus: Password Power."
+            }
+          ],
+          "createdAt": "2026-05-20T08:58:21.969Z"
+        },
+        {
+          "id": "175dc3d2-e8f3-4d82-b6c9-2853a823e057",
+          "type": "quiz-complete",
+          "pathId": "grades-6-8",
+          "lessonId": "lesson-1",
+          "levelId": "level-1",
+          "sectionId": "section-4",
+          "correct": 8,
+          "total": 8,
+          "accuracy": 1,
+          "passed": true,
+          "createdAt": "2026-05-20T08:59:03.533Z"
+        },
+        {
+          "id": "8340dafa-6320-489d-b9d5-fc592c75e935",
+          "type": "quiz-start",
+          "pathId": "grades-6-8",
+          "lessonId": "lesson-1",
+          "levelId": "level-1",
+          "sectionId": "section-5",
+          "questionCount": 8,
+          "answerKey": [
+            2,
+            1,
+            0,
+            1,
+            1,
+            1,
+            1,
+            2
+          ],
+          "questions": [
+            {
+              "id": "q-1-5-1",
+              "prompt": "What should you do after clicking a suspicious link by mistake?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "Ignore it if nothing happens right away",
+                "Enter fake details to test the page",
+                "Close it, do not enter information, and report it to a trusted person",
+                "Share the link so others can inspect it"
+              ],
+              "answer": 2,
+              "explanation": "Fast reporting and avoiding data entry reduce the risk. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-5-2",
+              "prompt": "An app requests access to your contacts, camera, microphone, and location for a simple puzzle game. What is a safe response?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "Accept all permissions because games need everything",
+                "Deny permissions that do not match the app's purpose",
+                "Give it your password instead",
+                "Turn off the lock screen"
+              ],
+              "answer": 1,
+              "explanation": "Permissions should fit the app's real function. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-5-3",
+              "prompt": "Which action helps a family recover faster after an account breach?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "Keep recovery email and phone details current",
+                "Delete all messages without checking them",
+                "Use one shared password for every account",
+                "Avoid telling anyone"
+              ],
+              "answer": 0,
+              "explanation": "Current recovery details make it easier to regain control safely. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-5-4",
+              "prompt": "A caller says they are from tech support and asks to remote-control your device. What should you do?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "Give control if they sound professional",
+                "Hang up and contact the company using its official support page",
+                "Read out all saved passwords",
+                "Install whatever they request"
+              ],
+              "answer": 1,
+              "explanation": "Unexpected support calls are risky. Start a new conversation through official channels. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-5-5",
+              "prompt": "What makes multi-factor authentication useful?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "It makes passwords unnecessary everywhere",
+                "It adds another proof step if a password is stolen",
+                "It lets friends log in for you",
+                "It hides all online activity"
+              ],
+              "answer": 1,
+              "explanation": "MFA helps block sign-ins that only have the password. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-5-6",
+              "prompt": "A message says your account will be closed in 10 minutes unless you sign in through a link. What is the safest first move?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "Open the link immediately so the account stays active",
+                "Use the official app or website directly and check alerts there",
+                "Reply with your password so support can verify you",
+                "Forward the message to friends to ask if it is real"
+              ],
+              "answer": 1,
+              "explanation": "Urgent account warnings are common phishing hooks. Going directly to the official service avoids a fake link. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-5-7",
+              "prompt": "Which password habit is strongest for a school, game, or shopping account?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "Use the same password everywhere so it is easy to remember",
+                "Use a unique long password or passphrase for each important account",
+                "Use your pet's name and birth year",
+                "Share your password only with close friends"
+              ],
+              "answer": 1,
+              "explanation": "Unique passwords limit damage if one account is exposed. Topic focus: Password Power."
+            },
+            {
+              "id": "q-1-5-8",
+              "prompt": "A friend asks for a login code that was texted to your phone. What should you do?",
+              "topic": "Password Power",
+              "difficulty": "standard",
+              "options": [
+                "Send the code because friends are safe",
+                "Post the code in the group chat",
+                "Do not share the code and contact the friend another way",
+                "Try the code on several websites"
+              ],
+              "answer": 2,
+              "explanation": "Login codes are account keys. A request for one may mean the friend's account was taken over. Topic focus: Password Power."
+            }
+          ],
+          "createdAt": "2026-05-20T09:00:39.668Z"
+        },
+        {
+          "id": "3c33fd27-8ea4-4100-9cb6-c7594884df61",
+          "type": "quiz-complete",
+          "pathId": "grades-6-8",
+          "lessonId": "lesson-1",
+          "levelId": "level-1",
+          "sectionId": "section-5",
+          "correct": 8,
+          "total": 8,
+          "accuracy": 1,
+          "passed": true,
+          "createdAt": "2026-05-20T09:01:10.538Z"
+        }
+      ],
+      "certificates": []
+    },
+    "user-1779256914816-vwiq3l": {
+      "profile": {
+        "id": "user-1779256914816-vwiq3l",
+        "name": "deep",
+        "role": "Student",
+        "activePathId": "grades-6-8",
+        "preferredLanguage": "English",
+        "avatarDataUrl": null,
+        "avatarColor": "#18a999",
+        "onboarded": true,
+        "xp": 0,
+        "streak": 0,
+        "lastActivityDate": null,
+        "createdAt": "2026-05-20T06:01:54.816Z"
+      },
+      "progress": {},
+      "attempts": [],
+      "certificates": []
+    }
+  },
+  "sessions": {},
+  "emailToUserId": {
+    "deepbiswas45510@gmail.com": "user-1779256781860-w5o4kv",
+    "deep@google.user": "user-1779256914816-vwiq3l"
+  }
+}
